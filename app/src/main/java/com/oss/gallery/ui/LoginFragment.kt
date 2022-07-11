@@ -5,16 +5,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.oss.gallery.R
+import com.oss.gallery.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
 
+    private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+    ): View {
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        initListeners()
+        initViews()
+
+        return binding.root
     }
+
+    private fun initListeners() = with(binding) {
+        // TODO loginEditText using Regex mask
+
+        entryButton.setOnClickListener {
+            // validate login & password
+
+        }
+    }
+
+    private fun initViews() = with(binding) {
+        loginInputLayout.isHelperTextEnabled = false
+        passwordInputLayout.isHelperTextEnabled = false
+    }
+
 }

@@ -5,4 +5,6 @@ object Constants {
 
     /* Splash Screen variables*/
     const val SPLASH_DELAY = 500L
+    
+// Сваггер спецификация: https://pictures.chronicker.fun/
 }

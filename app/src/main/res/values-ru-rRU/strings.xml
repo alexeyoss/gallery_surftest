@@ -3,4 +3,8 @@
     <string name="app_name">Галерея</string>
     <string name="splash_logo">Сплэш лого</string>
     <string name="login_tv_entry_text">Вход</string>
+    <string name="login_input_hint_text">Логин</string>
+    <string name="password_input_hint_text">Пароль</string>
+    <string name="input_error_text">Поле не может быть пустым</string>
+    <string name="entry_button_text">Войти</string>
 </resources>

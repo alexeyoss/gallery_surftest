@@ -8,43 +8,65 @@
     tools:context=".ui.LoginFragment">
 
     <TextView
-        android:id="@+id/login_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:paddingStart="17dp"
-        android:paddingTop="14dp"
-        android:paddingBottom="13dp"
+        android:id="@+id/header_tv"
+        style="@style/HeaderTextViewStyle"
         android:text="@string/login_tv_entry_text"
-        android:textColor="@color/black"
-        android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpUsage" />
+        tools:ignore="RtlSymmetry,SpUsage" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/login_custom_form"
-        android:fontFamily="@font/montserrat_medium"
+        android:id="@+id/login_input_layout"
+        style="@style/GalleryApp.TextInputStyle.FilledBox"
+        android:layout_marginTop="@dimen/input_margin_vertical_big"
+        android:hint="@string/login_input_hint_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_tv">
+        app:layout_constraintTop_toBottomOf="@+id/header_tv"
+        app:prefixText="+7"
+        app:prefixTextColor="@color/black">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.santalu.maskara.widget.MaskEditText
+            android:id="@+id/login_input_et"
+            style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Логин"
-            android:paddingVertical="18dp"
-            android:paddingStart="18dp"
-            android:textColor="@color/input_text_color"
-            android:textSize="16dp"
-            android:backgroundTint="@color/input_shadow_color"
+            android:inputType="phone"
+            android:maxLength="15"
+            app:mask="(___) ___ __ __"
+            app:maskCharacter="_"
+            app:maskStyle="normal" />
 
-            />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_input_layout"
+        style="@style/GalleryApp.TextInputStyle.FilledBox"
+        android:layout_marginTop="@dimen/input_margin_vertical_avg"
+        android:hint="@string/password_input_hint_text"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_input_layout"
+        app:passwordToggleDrawable="@drawable/ic_eye_selector"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_input_et"
+            style="@style/EditTextStyle"
+            android:inputType="textPassword"
+            android:maxLength="256" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/entry_button"
+        style="@style/entry_button_style"
+        android:text="@string/entry_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
