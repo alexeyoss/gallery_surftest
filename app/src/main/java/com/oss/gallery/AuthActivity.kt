@@ -33,7 +33,7 @@ class AuthActivity : AppCompatActivity(), Navigator {
 
 //        if (user.authed) { TODO
         supportFragmentManager.beginTransaction()
-            .replace(R.id.data_container, LoginFragment())
+            .replace(R.id.nav_host_fragment, LoginFragment())
             .commit()
 //        }
 

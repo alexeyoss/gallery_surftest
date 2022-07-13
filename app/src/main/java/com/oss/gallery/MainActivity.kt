@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -17,9 +18,13 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
+        setSupportActionBar(binding.authToolbar)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
 
-        val navController = findNavController(R.id.data_container)
-        binding.bottomNavigationView.setupWithNavController(navController)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        val navView = binding.bottomNavigationView
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.mainFragment,
@@ -27,8 +32,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.profileFragment
             )
         )
-
         setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+
 
     }
 
