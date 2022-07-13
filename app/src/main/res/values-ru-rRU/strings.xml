@@ -7,4 +7,5 @@
     <string name="password_input_hint_text">Пароль</string>
     <string name="input_error_text">Поле не может быть пустым</string>
     <string name="entry_button_text">Войти</string>
+    <string name="snackBar_text">Логин или пароль введен неправильно</string>
 </resources>
