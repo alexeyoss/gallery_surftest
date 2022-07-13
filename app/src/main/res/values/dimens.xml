@@ -23,4 +23,7 @@
     <dimen name="snackBar_text_size">14dp</dimen>
     <dimen name="snackBar_paddingHorizontal">24dp</dimen>
     <dimen name="snackBar_paddingVertical">14dp</dimen>
+
+    <!--Custom menu item-->
+    <dimen name="customMenuItem_padding">16dp</dimen>
 </resources>

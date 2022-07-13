@@ -7,14 +7,6 @@
     android:background="@color/white"
     tools:context=".ui.login_screen.LoginFragment">
 
-<!--    <TextView-->
-<!--        android:id="@+id/header_tv"-->
-<!--        style="@style/HeaderTextViewStyle"-->
-<!--        android:text="@string/login_tv_entry_text"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:ignore="RtlSymmetry,SpUsage" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/login_input_layout"

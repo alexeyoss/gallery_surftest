@@ -48,10 +48,10 @@
         android:theme="@style/Theme.Gallery.Starting"
         tools:targetApi="31">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AuthActivity"
+            android:name=".AuthActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

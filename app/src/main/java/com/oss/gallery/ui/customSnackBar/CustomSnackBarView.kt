@@ -1,4 +1,4 @@
-package com.oss.gallery.ui
+package com.oss.gallery.ui.customSnackBar
 
 import android.content.Context
 import android.util.AttributeSet

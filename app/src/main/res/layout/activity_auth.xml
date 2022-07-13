@@ -4,24 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AuthActivity">
+    tools:context=".AuthActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:liftOnScroll="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/authToolbar"
-            style="@style/AuthToolbarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryVariant"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/Theme.Gallery">
+            style="@style/AuthToolbarStyle">
 
             <TextView
                 android:id="@+id/authToolbarTitle"

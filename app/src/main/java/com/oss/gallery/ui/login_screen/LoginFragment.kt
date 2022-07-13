@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.oss.gallery.contract.navigator
 import com.oss.gallery.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -29,7 +30,7 @@ class LoginFragment : Fragment() {
         // TODO loginEditText using Regex mask
 
         entryButton.setOnClickListener {
-
+            navigator().launchScreen()
         }
     }
 

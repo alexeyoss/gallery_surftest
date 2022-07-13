@@ -1,4 +1,4 @@
-package com.oss.gallery.ui
+package com.oss.gallery.ui.customSnackBar
 
 import android.view.LayoutInflater
 import android.view.View

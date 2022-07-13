@@ -8,3 +8,5 @@ interface Navigator {
     fun launchScreen()
     fun goBack()
 }
+
+// TODO handle the visibility of the search feature in the options menu
