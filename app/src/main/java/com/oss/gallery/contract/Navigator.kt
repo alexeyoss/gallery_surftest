@@ -7,6 +7,7 @@ fun Fragment.navigator() : Navigator = requireActivity() as Navigator
 interface Navigator {
     fun launchScreen()
     fun goBack()
+    fun hideBottomNavigation()
 }
 
 // TODO handle the visibility of the search feature in the options menu

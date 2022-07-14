@@ -47,4 +47,8 @@ class AuthActivity : AppCompatActivity(), Navigator {
     override fun goBack() {
 
     }
+
+    override fun hideBottomNavigation() {
+
+    }
 }

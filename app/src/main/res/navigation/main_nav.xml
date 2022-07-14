@@ -7,9 +7,13 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.oss.gallery.ui.MainFragment"
+        android:name="com.oss.gallery.ui.main_fragment.MainFragment"
         android:label="Галерея"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.oss.gallery.ui.FavoritesFragment"
@@ -20,4 +24,13 @@
         android:name="com.oss.gallery.ui.ProfileFragment"
         android:label="Профиль"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/postDetailsFragment"
+        android:name="com.oss.gallery.ui.PostDetailsFragment"
+        android:label="fragment_post_details"
+        tools:layout="@layout/fragment_post_details" >
+        <action
+            android:id="@+id/action_postDetailsFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

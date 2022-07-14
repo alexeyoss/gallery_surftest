@@ -8,11 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!--    Login Screen-->
+    <!--Login Fragment-->
     <color name="input_back_color">#FBFBFB</color>
     <color name="input_hint_color">#4D000000</color>
     <color name="input_shadow_color">#0D000000</color>
     <color name="input_stroke_ErrorColor">#FF002E</color>
     <color name="snackBar_backgroundColor">#FF4545</color>
 
+    <!--Post Details Fragment-->
+    <color name="publicationData_textColor">#B3B3B3</color>
 </resources>
