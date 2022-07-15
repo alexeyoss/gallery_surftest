@@ -6,14 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.oss.gallery.R
+import com.oss.gallery.databinding.FragmentPostDetailsBinding
 
-class PostDetailsFragment : Fragment() {
+class PostDetailsFragment : Fragment(R.layout.fragment_post_details) {
+
+    private lateinit var binding: FragmentPostDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_post_details, container, false)
+    ): View {
+        binding = FragmentPostDetailsBinding.inflate(inflater, container, false)
+
+
+        return binding.root
     }
 }

@@ -13,11 +13,13 @@ import com.oss.gallery.utils.Constants
 
 class AuthActivity : AppCompatActivity(), Navigator {
 
-    private lateinit var binding: ActivityAuthBinding
+    private val binding by lazy { ActivityAuthBinding.inflate(layoutInflater) }
     private var keepSplashOnScreen = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+
         installSplashScreen().apply {
             // TODO Check current user logging state while 500L not gone
             setKeepOnScreenCondition { keepSplashOnScreen }
@@ -26,17 +28,15 @@ class AuthActivity : AppCompatActivity(), Navigator {
                 Constants.SPLASH_DELAY
             )
         }
-        binding = ActivityAuthBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         setSupportActionBar(binding.authToolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
 //        if (user.authed) { TODO
         supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment, LoginFragment())
+            .replace(R.id.fragmentContainer, LoginFragment())
             .commit()
 //        }
-
     }
 
     override fun launchScreen() {
@@ -45,10 +45,8 @@ class AuthActivity : AppCompatActivity(), Navigator {
     }
 
     override fun goBack() {
-
     }
 
     override fun hideBottomNavigation() {
-
     }
 }

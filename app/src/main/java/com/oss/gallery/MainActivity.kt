@@ -10,18 +10,17 @@ import androidx.navigation.ui.setupWithNavController
 import com.oss.gallery.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
+        setContentView(binding.root)
 
         setSupportActionBar(binding.authToolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         val navController = navHostFragment.navController
 
         val navView = binding.bottomNavigationView

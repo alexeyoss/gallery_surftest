@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.oss.gallery.R
 import com.oss.gallery.databinding.ItemMainScreenBinding
-import com.oss.gallery.network.PictureModel
+import com.oss.gallery.network.response.PictureModel
 
 class MainFragmentAdapter(
     val onClickRead: (PictureModel) -> Unit

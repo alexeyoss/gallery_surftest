@@ -1,4 +1,4 @@
-package com.oss.gallery.network
+package com.oss.gallery.network.response
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
