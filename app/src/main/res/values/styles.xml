@@ -27,11 +27,9 @@
         <item name="boxBackgroundColor">@color/input_back_color</item>
         <item name="boxCornerRadiusTopStart">@dimen/loginInput_cornerRadius</item>
         <item name="boxCornerRadiusTopEnd">@dimen/loginInput_cornerRadius</item>
-        <item name="android:layout_marginStart">@dimen/input_margin_horizontal_avg</item>
-        <item name="android:layout_marginEnd">@dimen/input_margin_horizontal_avg</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="boxStrokeColor">@color/input_shadow_color</item>
+        <item name="boxStrokeColor">@color/divider_shadow_color</item>
         <item name="boxStrokeErrorColor">@color/input_stroke_ErrorColor</item>
         <item name="boxStrokeWidth">@dimen/input_boxStrokeWidth</item>
         <item name="boxStrokeWidthFocused">@dimen/input_boxStrokeWidthFocused</item>
@@ -62,7 +60,7 @@
         <item name="android:textSize">@dimen/header_text_size</item>
     </style>
 
-    <style name="entry_button_style">
+    <style name="app_button_style" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/input_text_size</item>
@@ -72,9 +70,8 @@
         <item name="android:paddingTop">@dimen/entry_button_paddingTop</item>
         <item name="android:paddingBottom">@dimen/entry_button_paddingBottom</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:layout_marginStart">@dimen/input_margin_horizontal_avg</item>
-        <item name="android:layout_marginEnd">@dimen/input_margin_horizontal_avg</item>
         <item name="android:layout_marginBottom">@dimen/entry_button_marginBottom</item>
+        <item name="android:layout_marginTop">@dimen/entry_button_marginBottom</item>
     </style>
 
 </resources>

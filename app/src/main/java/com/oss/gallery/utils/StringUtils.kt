@@ -9,9 +9,9 @@ object StringUtils {
         return try {
             val initialDate = SimpleDateFormat("dd-MM-yyyy", Locale("ru"))
             val finalDate = Date(this.toLong())
-            return initialDate.format(finalDate)
+            initialDate.format(finalDate)
         } catch (e: Exception) {
-            return e.toString()
+            e.toString()
         }
     }
 }

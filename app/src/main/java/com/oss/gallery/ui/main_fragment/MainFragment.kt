@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.oss.gallery.R
 import com.oss.gallery.databinding.FragmentMainBinding
+import com.oss.gallery.ui.base_fragments.BaseMainFragments
 
-class MainFragment : Fragment(R.layout.fragment_main) {
+class MainFragment : BaseMainFragments(R.layout.fragment_main) {
 
     private lateinit var binding: FragmentMainBinding
     private val mAdapter = MainFragmentAdapter {

@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.oss.gallery.R
+import com.oss.gallery.ui.base_fragments.BaseMainFragments
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseMainFragments(R.layout.fragment_profile) {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

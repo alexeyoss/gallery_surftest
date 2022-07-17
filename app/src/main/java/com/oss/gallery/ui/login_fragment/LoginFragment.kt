@@ -1,15 +1,16 @@
-package com.oss.gallery.ui.login_screen
+package com.oss.gallery.ui.login_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.oss.gallery.R
 import com.oss.gallery.contract.navigator
 import com.oss.gallery.databinding.FragmentLoginBinding
+import com.oss.gallery.ui.base_fragments.BaseAuthFragments
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
 
     private lateinit var binding: FragmentLoginBinding
     private val mViewModel: LoginViewModel by viewModels()
@@ -29,7 +30,7 @@ class LoginFragment : Fragment() {
     private fun initListeners() = with(binding) {
         // TODO loginEditText using Regex mask
 
-        entryButton.setOnClickListener {
+        loginBtn.setOnClickListener {
             navigator().launchScreen()
         }
     }
@@ -38,5 +39,4 @@ class LoginFragment : Fragment() {
         loginInputLayout.isHelperTextEnabled = false
         passwordInputLayout.isHelperTextEnabled = false
     }
-
 }

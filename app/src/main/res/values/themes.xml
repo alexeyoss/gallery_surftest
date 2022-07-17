@@ -13,6 +13,6 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-
+        <item name="materialButtonStyle">@style/app_button_style</item>
     </style>
 </resources>

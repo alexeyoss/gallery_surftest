@@ -1,4 +1,4 @@
-package com.oss.gallery.ui.login_screen
+package com.oss.gallery.ui.login_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

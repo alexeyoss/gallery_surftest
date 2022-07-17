@@ -1,4 +1,4 @@
-package com.oss.gallery
+package com.oss.gallery.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,13 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.oss.gallery.contract.Navigator
+import com.oss.gallery.R
+import com.oss.gallery.contract.AuthNavigator
 import com.oss.gallery.databinding.ActivityAuthBinding
-import com.oss.gallery.ui.login_screen.LoginFragment
+import com.oss.gallery.ui.login_fragment.LoginFragment
 import com.oss.gallery.utils.Constants
 
-class AuthActivity : AppCompatActivity(), Navigator {
+class AuthActivity : AppCompatActivity(), AuthNavigator {
 
     private val binding by lazy { ActivityAuthBinding.inflate(layoutInflater) }
     private var keepSplashOnScreen = true
@@ -45,8 +46,5 @@ class AuthActivity : AppCompatActivity(), Navigator {
     }
 
     override fun goBack() {
-    }
-
-    override fun hideBottomNavigation() {
     }
 }
