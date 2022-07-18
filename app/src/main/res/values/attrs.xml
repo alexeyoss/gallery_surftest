@@ -4,4 +4,9 @@
         <attr name="udv_header" format="string" />
         <attr name="udv_subTitle" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="LoadingButton">
+        <attr name="lb_text" format="string" />
+        <attr name="lb_loading" format="boolean" />
+    </declare-styleable>
 </resources>
