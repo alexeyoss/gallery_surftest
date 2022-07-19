@@ -16,17 +16,17 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.oss.gallery.ui.FavoritesFragment"
+        android:name="com.oss.gallery.ui.favorites_fragment.FavoritesFragment"
         android:label="Мои избранные"
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.oss.gallery.ui.ProfileFragment"
+        android:name="com.oss.gallery.ui.profile_fragment.ProfileFragment"
         android:label="Профиль"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/postDetailsFragment"
-        android:name="com.oss.gallery.ui.PostDetailsFragment"
+        android:name="com.oss.gallery.ui.main_fragment.PostDetailsFragment"
         android:label="fragment_post_details"
         tools:layout="@layout/fragment_post_details" >
         <action

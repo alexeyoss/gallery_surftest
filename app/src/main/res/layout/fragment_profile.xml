@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.ProfileFragment">
+    tools:context=".ui.profile_fragment.ProfileFragment">
 
-    <Button
+    <com.oss.gallery.ui.custom_views.LoadingButton
         android:id="@+id/logout_btn"
-        style="@style/app_button_style"
-        android:text="Выйти"
+        style="@style/loading_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:lb_loading="false"
+        app:lb_text="Выйти" />
 
     <ImageView
         android:id="@+id/profilePhoto"

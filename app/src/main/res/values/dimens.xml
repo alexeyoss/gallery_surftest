@@ -15,9 +15,10 @@
     <dimen name="header_text_size">24dp</dimen>
     <dimen name="input_boxStrokeWidth">1dp</dimen>
     <dimen name="input_boxStrokeWidthFocused">1dp</dimen>
-    <dimen name="entry_button_marginBottom">20dp</dimen>
-    <dimen name="entry_button_paddingTop">11dp</dimen>
-    <dimen name="entry_button_paddingBottom">13dp</dimen>
+    <dimen name="loading_button_marginBottom">20dp</dimen>
+    <dimen name="loading_button_marginTop">20dp</dimen>
+    <dimen name="loading_button_paddingTop">11dp</dimen>
+    <dimen name="loading_button_paddingBottom">13dp</dimen>
 
     <!--SnackBar settings-->
     <dimen name="snackBar_text_size">14dp</dimen>

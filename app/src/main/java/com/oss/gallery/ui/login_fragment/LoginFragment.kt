@@ -31,6 +31,7 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
         // TODO loginEditText using Regex mask
 
         loginBtn.setOnClickListener {
+            loginBtn.loading = !loginBtn.loading
             navigator().launchScreen()
         }
     }
@@ -38,5 +39,10 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
     private fun initViews() = with(binding) {
         loginInputLayout.isHelperTextEnabled = false
         passwordInputLayout.isHelperTextEnabled = false
+    }
+
+    override fun onDestroy() = with(binding) {
+        super.onDestroy()
+        loginBtn.setOnClickListener(null)
     }
 }

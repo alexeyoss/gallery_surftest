@@ -1,4 +1,4 @@
-package com.oss.gallery.ui
+package com.oss.gallery.ui.main_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,5 +20,13 @@ class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
 
 
         return binding.root
+    }
+
+    private fun initViews() = with(binding) {
+        // TODO info exchange via fragments API (extend the navigator functionality)
+//        navigator().listenResult(Results::class.java, viewLifecycleOwner) { source ->
+//            this@MovieDetailsFragment.result = source
+//            initViews(source)
+//        }
     }
 }
