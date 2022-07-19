@@ -7,15 +7,6 @@
     android:orientation="vertical"
     tools:context=".ui.profile_fragment.ProfileFragment">
 
-    <com.oss.gallery.ui.custom_views.LoadingButton
-        android:id="@+id/logout_btn"
-        style="@style/loading_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:lb_loading="false"
-        app:lb_text="Выйти" />
-
     <ImageView
         android:id="@+id/profilePhoto"
         android:layout_width="128dp"
@@ -52,6 +43,15 @@
         app:layout_constraintStart_toEndOf="@+id/profilePhoto"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.oss.gallery.ui.custom_views.LoadingButton
+        android:id="@+id/logout_btn"
+        style="@style/loading_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lb_loading="false"
+        app:lb_text="Выйти" />
+
     <com.oss.gallery.ui.custom_views.UserDetailView
         android:id="@+id/phone_info"
         android:layout_width="match_parent"
@@ -82,5 +82,4 @@
         app:layout_constraintTop_toBottomOf="@+id/profilePhoto"
         app:udv_header="Город"
         app:udv_subTitle="Санкт-Петербург" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

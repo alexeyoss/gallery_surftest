@@ -24,9 +24,7 @@ class ProfileFragment : BaseMainFragments(R.layout.fragment_profile) {
     }
 
     private fun initListeners() = with(binding) {
-        logoutBtn.setOnClickListener {
-            logoutBtn.loading = !logoutBtn.loading
-            // TODO
-        }
+        logoutBtn.loading = !logoutBtn.loading
+        // TODO
     }
 }

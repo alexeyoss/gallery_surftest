@@ -12,7 +12,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mainScreen_rv"
             android:layout_width="match_parent"
-            tools:listitem="@layout/item_main_screen"
+            tools:listitem="@layout/item_main_fragment"
             android:layout_height="match_parent" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

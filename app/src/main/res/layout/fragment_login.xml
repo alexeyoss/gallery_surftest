@@ -49,12 +49,14 @@
             app:maskStyle="normal" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!--Piece of shit-->
     <com.oss.gallery.ui.custom_views.LoadingButton
         android:id="@+id/login_btn"
-        style="@style/loading_button"
+        style="Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/entry_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:lb_loading="false"
-        app:lb_text="Войти" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

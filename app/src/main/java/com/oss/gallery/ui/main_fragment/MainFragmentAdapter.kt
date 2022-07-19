@@ -6,18 +6,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.oss.gallery.R
-import com.oss.gallery.databinding.ItemMainScreenBinding
+import com.oss.gallery.databinding.ItemMainFragmentBinding
 import com.oss.gallery.network.response.PictureModel
+import com.oss.gallery.utils.MainFragmentOnClickListener
 
 class MainFragmentAdapter(
-    val onClickRead: (PictureModel) -> Unit
+//    val onClickRead: (PictureModel) -> Unit
+    val clickListener: MainFragmentOnClickListener
 ) : RecyclerView.Adapter<MainFragmentAdapter.mViewHolder>() {
 
     private var data = listOf<PictureModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
         return mViewHolder(
-            ItemMainScreenBinding.inflate(
+            ItemMainFragmentBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -39,7 +41,7 @@ class MainFragmentAdapter(
     }
 
     inner class mViewHolder(
-        private val binding: ItemMainScreenBinding
+        private val binding: ItemMainFragmentBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: PictureModel) = with(binding) {
@@ -50,7 +52,13 @@ class MainFragmentAdapter(
             title.text = data.title
             like.setBackgroundResource(R.drawable.heart_empty)
             photo.setOnClickListener {
-                onClickRead(data)
+                clickListener.onViewClicked(data)
+            }
+            like.setOnClickListener {
+                clickListener.onLikeClicked(
+                    data.id,
+                    isLiked = false
+                ) // TODO build the data model with additional "like" status. The opposite of the data files
             }
         }
     }
