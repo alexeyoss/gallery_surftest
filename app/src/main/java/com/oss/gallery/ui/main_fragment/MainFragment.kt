@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.oss.gallery.R
+import com.oss.gallery.data.entites.BasePictureModel
 import com.oss.gallery.databinding.FragmentMainBinding
-import com.oss.gallery.network.response.PictureModel
 import com.oss.gallery.ui.base_fragments.BaseMainFragments
 import com.oss.gallery.utils.MainFragmentOnClickListener
 
@@ -44,7 +44,7 @@ class MainFragment : BaseMainFragments(R.layout.fragment_main), MainFragmentOnCl
         }
     }
 
-    override fun onViewClicked(data: PictureModel) {
+    override fun onViewClicked(data: BasePictureModel) {
         TODO("Not yet implemented")
     }
 

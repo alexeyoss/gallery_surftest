@@ -48,15 +48,16 @@
             app:maskCharacter="_"
             app:maskStyle="normal" />
     </com.google.android.material.textfield.TextInputLayout>
-
     <!--Piece of shit-->
+
     <com.oss.gallery.ui.custom_views.LoadingButton
         android:id="@+id/login_btn"
-        style="Widget.MaterialComponents.Button"
+        style="@style/loading_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/entry_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:lb_loading="false"
+        app:lb_text="@string/entry_button_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

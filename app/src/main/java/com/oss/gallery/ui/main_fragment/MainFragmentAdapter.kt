@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.oss.gallery.R
+import com.oss.gallery.data.entites.BasePictureModel
 import com.oss.gallery.databinding.ItemMainFragmentBinding
-import com.oss.gallery.network.response.PictureModel
 import com.oss.gallery.utils.MainFragmentOnClickListener
 
 class MainFragmentAdapter(
@@ -15,7 +15,7 @@ class MainFragmentAdapter(
     val clickListener: MainFragmentOnClickListener
 ) : RecyclerView.Adapter<MainFragmentAdapter.mViewHolder>() {
 
-    private var data = listOf<PictureModel>()
+    private var data = listOf<BasePictureModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
         return mViewHolder(
@@ -33,7 +33,7 @@ class MainFragmentAdapter(
 
     override fun getItemCount(): Int = data.size
 
-    fun setData(newData: List<PictureModel>) {
+    fun setData(newData: List<BasePictureModel>) {
         val diffCallBack = DiffCallback(data, newData)
         val diffResult = DiffUtil.calculateDiff(diffCallBack, false)
         data = newData
@@ -44,7 +44,7 @@ class MainFragmentAdapter(
         private val binding: ItemMainFragmentBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: PictureModel) = with(binding) {
+        fun bind(data: BasePictureModel) = with(binding) {
             Glide.with(itemView.context)
                 .load(data.photoUrl)
                 .centerCrop()
@@ -65,8 +65,8 @@ class MainFragmentAdapter(
 }
 
 class DiffCallback(
-    private val oldData: List<PictureModel>,
-    private val newData: List<PictureModel>
+    private val oldData: List<BasePictureModel>,
+    private val newData: List<BasePictureModel>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldData.size
 

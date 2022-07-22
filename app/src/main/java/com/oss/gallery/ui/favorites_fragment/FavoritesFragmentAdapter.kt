@@ -4,17 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.oss.gallery.data.entites.BasePictureModel
 import com.oss.gallery.databinding.ItemFavoritesFragmentBinding
-import com.oss.gallery.network.response.PictureModel
-import com.oss.gallery.utils.BaseOnClickListener
 import com.oss.gallery.utils.FavoritesFragmentOnClickListener
-import com.oss.gallery.utils.StringUtils.getFormattedDateFromTimestamp
 
 class FavoritesFragmentAdapter(
     val clickListener: FavoritesFragmentOnClickListener
 ) : RecyclerView.Adapter<FavoritesFragmentAdapter.mViewHolder>() {
 
-    private var data = listOf<PictureModel>()
+    private var data = listOf<BasePictureModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
         return mViewHolder(
@@ -37,17 +35,17 @@ class FavoritesFragmentAdapter(
         private val binding: ItemFavoritesFragmentBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: PictureModel) = with(binding) {
+        fun bind(data: BasePictureModel) = with(binding) {
             Glide.with(itemView.context)
                 .load(data.photoUrl)
                 .centerCrop()
                 .into(photo)
             title.text = data.title
-            publicationDate.text = data.publicationDate.getFormattedDateFromTimestamp()
+            publicationDate.text = data.publicationDate
             content.text = data.content
         }
 
-        fun initListeners(data: PictureModel) = with(binding) {
+        fun initListeners(data: BasePictureModel) = with(binding) {
             like.setOnClickListener {
                 clickListener.onLikeClicked(
                     data.id,

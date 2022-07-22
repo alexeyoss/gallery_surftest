@@ -1,6 +1,7 @@
 package com.oss.gallery.di
 
 import com.oss.gallery.data.Interactor
+import com.oss.gallery.data.entites.BasePictureModelMapper
 import com.oss.gallery.network.ApiService
 import dagger.Module
 import dagger.Provides
@@ -14,7 +15,17 @@ object InteractorModule {
 
     @Singleton
     @Provides
-    fun provideInteractor(apiService: ApiService): Interactor {
-        return Interactor(apiService)
+    fun provideInteractor(
+        apiService: ApiService,
+        baseModelMapper: BasePictureModelMapper
+    ): Interactor {
+        return Interactor(
+            apiService,
+            baseModelMapper
+        )
     }
+
+    @Singleton
+    @Provides
+    fun provideBasePictureModelMapper(): BasePictureModelMapper = BasePictureModelMapper()
 }
