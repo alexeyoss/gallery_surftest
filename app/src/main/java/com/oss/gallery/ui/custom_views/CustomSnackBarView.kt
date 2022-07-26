@@ -27,6 +27,4 @@ class CustomSnackBarView @JvmOverloads constructor(
 
     override fun animateContentOut(delay: Int, duration: Int) {
     }
-
-
 }

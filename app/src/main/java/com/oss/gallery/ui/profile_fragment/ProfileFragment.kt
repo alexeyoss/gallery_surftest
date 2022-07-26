@@ -37,6 +37,8 @@ class ProfileFragment : BaseMainFragments(R.layout.fragment_profile) {
         }
 
         alertListener = DialogInterface.OnClickListener { _, button ->
+            binding.logoutBtn.loading = false
+
             when (button) {
                 DialogInterface.BUTTON_POSITIVE -> {
                     Toast.makeText(
@@ -44,10 +46,8 @@ class ProfileFragment : BaseMainFragments(R.layout.fragment_profile) {
                         "It works",
                         Toast.LENGTH_SHORT
                     ).show()
-                    logoutBtn.loading = true
                 }
                 DialogInterface.BUTTON_NEGATIVE -> {
-                    logoutBtn.loading = false
                 }
             }
         }

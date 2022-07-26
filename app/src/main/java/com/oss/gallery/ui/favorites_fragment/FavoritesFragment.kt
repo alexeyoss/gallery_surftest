@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oss.gallery.R
+import com.oss.gallery.contract.HasCustomTitle
 import com.oss.gallery.databinding.FragmentFavoritesBinding
 import com.oss.gallery.ui.base_fragments.BaseMainFragments
 import com.oss.gallery.utils.FavoritesFragmentOnClickListener
 
 class FavoritesFragment : BaseMainFragments(R.layout.fragment_favorites),
-    FavoritesFragmentOnClickListener {
+    FavoritesFragmentOnClickListener, HasCustomTitle {
 
     private lateinit var binding: FragmentFavoritesBinding
     private val mAdapter = FavoritesFragmentAdapter(this)
@@ -45,4 +46,6 @@ class FavoritesFragment : BaseMainFragments(R.layout.fragment_favorites),
     override fun onLikeClicked(pictureId: Int, isLiked: Boolean) {
         TODO("Not yet implemented")
     }
+
+    override fun getStringRes(): Int = R.string.favorites_title
 }

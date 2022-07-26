@@ -9,9 +9,9 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,13 +27,8 @@
         app:liftOnScroll="true">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/authToolbar"
-            style="@style/AuthToolbarStyle">
-
-            <TextView
-                android:id="@+id/authToolbarTitle"
-                style="@style/ToolbarTextViewStyle"
-                android:text="@string/login_tv_entry_text" />
-        </androidx.appcompat.widget.Toolbar>
+            android:id="@+id/Toolbar"
+            app:titleTextAppearance="@style/ActionBar.TitleText"
+            style="@style/ToolbarStyle" />
     </com.google.android.material.appbar.AppBarLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

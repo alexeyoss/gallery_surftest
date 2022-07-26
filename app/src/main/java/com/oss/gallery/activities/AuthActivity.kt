@@ -30,14 +30,18 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
             )
         }
 
-        setSupportActionBar(binding.authToolbar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        setSupportActionBar(binding.Toolbar)
 
 //        if (user.authed) { TODO
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, LoginFragment())
             .commit()
 //        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        supportActionBar!!.title = getString(R.string.login_tv_entry_text)
     }
 
     override fun launchScreen() {

@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--AuthActivity-->
-    <style name="AuthToolbarStyle">
-        <item name="android:paddingStart">@dimen/header_padding_start</item>
-        <item name="android:paddingTop">@dimen/header_padding_top</item>
-        <item name="android:paddingBottom">@dimen/header_padding_bottom</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">?attr/colorPrimaryVariant</item>
-        <item name="android:minHeight">?attr/actionBarSize</item>
-        <item name="android:theme">@style/Theme.Gallery</item>
-    </style>
+    <!--AuthActivity--><style name="ToolbarStyle">
+    <item name="android:paddingStart">@dimen/header_padding_start</item>
+    <item name="android:paddingTop">@dimen/header_padding_top</item>
+    <item name="android:paddingBottom">@dimen/header_padding_bottom</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:background">?attr/colorPrimaryVariant</item>
+    <item name="android:minHeight">?attr/actionBarSize</item>
+    <item name="android:theme">@style/Theme.Gallery</item>
+</style>
 
-    <style name="ToolbarTextViewStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="ActionBar.TitleText" parent="Widget.AppCompat.ActionBar">
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/header_text_size</item>
     </style>
-
     <!--Login Fragment-->
     <!--Common Styles-->
     <style name="GalleryApp.TextInputStyle.FilledBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
@@ -79,7 +75,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/loading_button_marginTop</item>
         <item name="android:layout_marginBottom">@dimen/loading_button_marginBottom</item>
-<!--        <item name="android:paddingBottom">@dimen/loading_button_paddingBottom</item>-->
-<!--        <item name="android:paddingTop">@dimen/loading_button_paddingTop</item>-->
+        <!--        <item name="android:paddingBottom">@dimen/loading_button_paddingBottom</item>-->
+        <!--        <item name="android:paddingTop">@dimen/loading_button_paddingTop</item>-->
     </style>
 </resources>

@@ -30,11 +30,10 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
     private fun initListeners() = with(binding) {
         // TODO loginEditText using Regex mask
 
-        // It STILL NOT WORKING
         loginBtn.setOnClickListener {
-            loginBtn.loading = true
             navigator().launchScreen()
         }
+
     }
 
     private fun initViews() = with(binding) {

@@ -58,6 +58,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:lb_loading="false"
         app:lb_text="@string/entry_button_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

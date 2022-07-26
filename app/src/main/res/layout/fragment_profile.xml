@@ -49,7 +49,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:lb_loading="false"
         app:lb_text="Выйти" />
 
     <com.oss.gallery.ui.custom_views.UserDetailView

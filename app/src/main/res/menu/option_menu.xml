@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<!-- TODO set padding 24 dp -->
+    <!-- TODO set padding 24 dp -->
     <item
         android:id="@+id/app_bar_search"
         android:icon="@drawable/ic_search_line"
-        android:visible="true"
         android:title="@string/customSearchIcon"
-        app:actionViewClass="android.widget.SearchView"
+        android:visible="true"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />
 </menu>

@@ -25,7 +25,6 @@ class CustomSnackBar(
             customView.title.text = title
 
             return CustomSnackBar(viewGroup, customView).setDuration(Snackbar.LENGTH_SHORT)
-
         }
     }
 }
