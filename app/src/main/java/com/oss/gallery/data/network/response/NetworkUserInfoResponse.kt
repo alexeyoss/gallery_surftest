@@ -1,10 +1,10 @@
-package com.oss.gallery.network.response
+package com.oss.gallery.data.network.response
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class UserInfoModel(
+data class NetworkUserInfoResponse(
     val id: Int,
     val phone: String, // TODO watch the example from the lessons (they do parsing more concise)
     val email: String,

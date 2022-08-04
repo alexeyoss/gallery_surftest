@@ -1,7 +1,7 @@
 package com.oss.gallery.di
 
-import com.oss.gallery.network.ApiService
-import com.oss.gallery.network.ServerUrls
+import com.oss.gallery.data.network.ApiService
+import com.oss.gallery.data.network.ServerUrls
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

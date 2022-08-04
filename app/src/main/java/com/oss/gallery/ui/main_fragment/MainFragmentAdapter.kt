@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.oss.gallery.R
-import com.oss.gallery.data.entites.BasePictureModel
+import com.oss.gallery.data.model.BasePictureModel
 import com.oss.gallery.databinding.ItemMainFragmentBinding
-import com.oss.gallery.utils.MainFragmentOnClickListener
+import com.oss.gallery.utils.listeners.MainFragmentOnClickListener
 
 class MainFragmentAdapter(
 //    val onClickRead: (PictureModel) -> Unit

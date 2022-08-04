@@ -1,8 +1,8 @@
 package com.oss.gallery.di
 
-import com.oss.gallery.data.Interactor
-import com.oss.gallery.data.entites.BasePictureModelMapper
-import com.oss.gallery.network.ApiService
+import com.oss.gallery.data.network.ApiService
+import com.oss.gallery.data.repository.BasePictureModelMapper
+import com.oss.gallery.data.repository.MainRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +18,8 @@ object InteractorModule {
     fun provideInteractor(
         apiService: ApiService,
         baseModelMapper: BasePictureModelMapper
-    ): Interactor {
-        return Interactor(
+    ): MainRepositoryImpl {
+        return MainRepositoryImpl(
             apiService,
             baseModelMapper
         )

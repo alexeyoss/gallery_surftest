@@ -1,6 +1,6 @@
-package com.oss.gallery.utils
+package com.oss.gallery.utils.listeners
 
-import com.oss.gallery.data.entites.BasePictureModel
+import com.oss.gallery.data.model.BasePictureModel
 
 interface MainFragmentOnClickListener : BaseOnClickListener {
     fun onViewClicked(data: BasePictureModel)

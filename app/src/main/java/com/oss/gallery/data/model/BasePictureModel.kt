@@ -1,4 +1,4 @@
-package com.oss.gallery.data.entites
+package com.oss.gallery.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

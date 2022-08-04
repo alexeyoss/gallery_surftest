@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.oss.gallery.data.entites.BasePictureModel
+import com.oss.gallery.data.model.BasePictureModel
 import com.oss.gallery.databinding.ItemFavoritesFragmentBinding
-import com.oss.gallery.utils.FavoritesFragmentOnClickListener
+import com.oss.gallery.utils.listeners.FavoritesFragmentOnClickListener
 
 class FavoritesFragmentAdapter(
     val clickListener: FavoritesFragmentOnClickListener

@@ -1,4 +1,4 @@
-package com.oss.gallery.activities
+package com.oss.gallery.ui.activities
 
 import android.os.Bundle
 import android.view.Menu
@@ -12,16 +12,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.oss.gallery.R
-import com.oss.gallery.contract.HasCustomTitle
 import com.oss.gallery.contract.MainNavigator
+import com.oss.gallery.contract.ToolbarHandler
 import com.oss.gallery.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MainNavigator, SearchView.OnQueryTextListener {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     private val currentFragment: Fragment
-        // TODO maybe get current Fragment from  NavView
-        //    get() = findViewById(R.id.bottomNavigationView).
         get() = supportFragmentManager.findFragmentById(R.id.fragmentContainer)!!
 
     private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
@@ -61,14 +59,6 @@ class MainActivity : AppCompatActivity(), MainNavigator, SearchView.OnQueryTextL
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, false)
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        // TODO correct business logic - It's just example
-        if (currentFragment is HasCustomTitle) {
-            menu.findItem(R.id.app_bar_search).setVisible(false)
-        }
-        return super.onPrepareOptionsMenu(menu)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.option_menu, menu)
 
@@ -76,6 +66,7 @@ class MainActivity : AppCompatActivity(), MainNavigator, SearchView.OnQueryTextL
         val searchView = search.actionView as SearchView
         searchView.isSubmitButtonEnabled = false
         searchView.setOnQueryTextListener(this)
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -87,7 +78,7 @@ class MainActivity : AppCompatActivity(), MainNavigator, SearchView.OnQueryTextL
     private fun updateUI() = with(binding) {
         val fragment = currentFragment
 
-        if (fragment is HasCustomTitle) {
+        if (fragment is ToolbarHandler) {
             supportActionBar?.title = getString(fragment.getStringRes())
         } else {
             supportActionBar?.title = getString(R.string.app_name)

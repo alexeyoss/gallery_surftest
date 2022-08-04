@@ -52,7 +52,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     // OkHttp3
     implementation "com.squareup.okhttp3:okhttp:4.9.3"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.9.2"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
@@ -60,9 +60,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesCore"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3"
     // Coroutines LifecycleScopes
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     //Activity, fragment extensions
     implementation "androidx.activity:activity-ktx:$activityKtx"
     implementation "androidx.fragment:fragment-ktx:$fragmentKtx"
@@ -73,13 +73,15 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     // Splash extension
-    implementation "androidx.core:core-splashscreen:1.0.0-rc01"
+    implementation "androidx.core:core-splashscreen:1.0.0"
     // SwipeRefreshLayout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     // EditText mask Library
     implementation "com.github.santalu:maskara:1.0.0"
     // CardView
     implementation "androidx.cardview:cardview:1.0.0"
+    // Logging
+    implementation "com.jakewharton.timber:timber:5.0.1"
 
 }
 kapt {

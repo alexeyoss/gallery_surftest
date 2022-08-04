@@ -29,4 +29,8 @@ class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
 //            initViews(source)
 //        }
     }
+
+    companion object {
+        // TODO  data transfer via CustomDelegator
+    }
 }

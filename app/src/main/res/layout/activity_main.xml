@@ -30,6 +30,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/Toolbar"
             style="@style/ToolbarStyle"
+            app:popupTheme="@layout/custom_search_view"
             app:titleTextAppearance="@style/ActionBar.TitleText"/>
     </com.google.android.material.appbar.AppBarLayout>
 

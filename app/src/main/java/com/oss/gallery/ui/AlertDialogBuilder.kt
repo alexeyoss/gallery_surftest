@@ -4,8 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 
-class AlertDialogBuilder(
-) {
+class AlertDialogBuilder {
     companion object {
         fun createDialog(
             context: Context,

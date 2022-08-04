@@ -13,7 +13,7 @@ import com.oss.gallery.ui.base_fragments.BaseAuthFragments
 class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
 
     private lateinit var binding: FragmentLoginBinding
-    private val mViewModel: LoginViewModel by viewModels()
+    private val mViewMode by viewModels<LoginViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +29,6 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
 
     private fun initListeners() = with(binding) {
         // TODO loginEditText using Regex mask
-
         loginBtn.setOnClickListener {
             navigator().launchScreen()
         }

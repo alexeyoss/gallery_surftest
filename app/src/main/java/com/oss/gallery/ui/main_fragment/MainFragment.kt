@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.oss.gallery.R
-import com.oss.gallery.data.entites.BasePictureModel
+import com.oss.gallery.data.model.BasePictureModel
 import com.oss.gallery.databinding.FragmentMainBinding
 import com.oss.gallery.ui.base_fragments.BaseMainFragments
-import com.oss.gallery.utils.MainFragmentOnClickListener
+import com.oss.gallery.utils.listeners.MainFragmentOnClickListener
 
-class MainFragment : BaseMainFragments(R.layout.fragment_main), MainFragmentOnClickListener {
+class MainFragment : BaseMainFragments(R.layout.fragment_main),
+    MainFragmentOnClickListener {
 
     private lateinit var binding: FragmentMainBinding
     private val mAdapter = MainFragmentAdapter(this)

@@ -1,11 +1,12 @@
-package com.oss.gallery.data.entites
+package com.oss.gallery.data.repository
 
-import com.oss.gallery.network.response.NetworkPictureModel
+import com.oss.gallery.data.model.BasePictureModel
+import com.oss.gallery.data.network.response.NetworkPictureResponse
 import com.oss.gallery.utils.EntityMapper
 import com.oss.gallery.utils.StringUtils.getFormattedDateFromTimestamp
 
-class BasePictureModelMapper : EntityMapper<NetworkPictureModel, BasePictureModel> {
-    override fun mapModelFromEntity(entity: NetworkPictureModel): BasePictureModel {
+class BasePictureModelMapper : EntityMapper<NetworkPictureResponse, BasePictureModel> {
+    override fun mapModelFromEntity(entity: NetworkPictureResponse): BasePictureModel {
         return BasePictureModel(
             id = entity.id,
             title = entity.title,
@@ -16,8 +17,8 @@ class BasePictureModelMapper : EntityMapper<NetworkPictureModel, BasePictureMode
         )
     }
 
-    override fun mapModelToEntity(entity: BasePictureModel): NetworkPictureModel {
-        return NetworkPictureModel(
+    override fun mapModelToEntity(entity: BasePictureModel): NetworkPictureResponse {
+        return NetworkPictureResponse(
             id = entity.id,
             title = entity.title,
             content = entity.content,
@@ -26,7 +27,7 @@ class BasePictureModelMapper : EntityMapper<NetworkPictureModel, BasePictureMode
         )
     }
 
-    fun mapEntityList(entities: List<NetworkPictureModel>): List<BasePictureModel> {
+    fun mapEntityList(entities: List<NetworkPictureResponse>): List<BasePictureModel> {
         return entities.map { mapModelFromEntity(it) }
     }
 }

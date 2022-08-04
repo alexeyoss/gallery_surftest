@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oss.gallery.R
-import com.oss.gallery.contract.HasCustomTitle
+import com.oss.gallery.contract.ToolbarHandler
 import com.oss.gallery.databinding.FragmentFavoritesBinding
 import com.oss.gallery.ui.base_fragments.BaseMainFragments
-import com.oss.gallery.utils.FavoritesFragmentOnClickListener
+import com.oss.gallery.utils.listeners.FavoritesFragmentOnClickListener
 
 class FavoritesFragment : BaseMainFragments(R.layout.fragment_favorites),
-    FavoritesFragmentOnClickListener, HasCustomTitle {
+    FavoritesFragmentOnClickListener,
+    ToolbarHandler {
 
     private lateinit var binding: FragmentFavoritesBinding
     private val mAdapter = FavoritesFragmentAdapter(this)
