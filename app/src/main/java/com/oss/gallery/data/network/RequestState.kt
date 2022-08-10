@@ -17,5 +17,4 @@ sealed interface ErrorState : RequestState<Nothing> {
     ) : ErrorState
 
     object ConnectionError : ErrorState
-    object UnauthorizedError : ErrorState
 }

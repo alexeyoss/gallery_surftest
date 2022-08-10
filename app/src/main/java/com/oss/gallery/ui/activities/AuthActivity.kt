@@ -10,7 +10,9 @@ import com.oss.gallery.R
 import com.oss.gallery.contract.AuthNavigator
 import com.oss.gallery.databinding.ActivityAuthBinding
 import com.oss.gallery.ui.login_fragment.LoginFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AuthActivity : AppCompatActivity(), AuthNavigator {
 
     private val binding by lazy { ActivityAuthBinding.inflate(layoutInflater) }
@@ -33,14 +35,14 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
             )
         }
 
-        if (loginStatus && savedInstanceState == null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        } else {
+//        if (loginStatus && savedInstanceState == null) {
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//        } else {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, LoginFragment())
                 .commit()
-        }
+//        }
 
         setSupportActionBar(binding.Toolbar)
     }

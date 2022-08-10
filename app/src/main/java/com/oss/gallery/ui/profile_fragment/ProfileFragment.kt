@@ -61,4 +61,12 @@ class ProfileFragment : BaseMainFragments(R.layout.fragment_profile) {
                 alertListener
             )
     }
+
+    private fun checkData(data: String?): Boolean {
+        data?.let { return true } ?: return false
+    }
+
+    companion object {
+        // Insert data via CustomDelegator and check the empty data for visibility handling
+    }
 }

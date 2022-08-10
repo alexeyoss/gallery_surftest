@@ -10,17 +10,17 @@ import retrofit2.http.POST
 
 interface ApiService {
 
-    @POST("/auth/login")
+    @POST("auth/login")
     suspend fun login(
         @Body authRequest: NetworkAuthRequest
     ): NetworkAuthResponse
 
-    @POST("/auth/logout")
+    @POST("auth/logout")
     suspend fun logout(
         @Header("Authorization") token: String
     )
 
-    @GET("/picture")
+    @GET("picture")
     suspend fun getPictures(
         @Header("Authorization") token: String
     ): NetworkPictureResponse

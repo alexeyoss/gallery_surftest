@@ -1,3 +1,8 @@
 package com.oss.gallery.ui.activities
 
-interface AuthViewModel
+import com.oss.gallery.data.network.request.NetworkAuthRequest
+
+interface AuthViewModel {
+
+    fun login(authRequest: NetworkAuthRequest)
+}

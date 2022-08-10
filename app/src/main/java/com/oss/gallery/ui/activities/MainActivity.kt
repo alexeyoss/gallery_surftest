@@ -15,7 +15,9 @@ import com.oss.gallery.R
 import com.oss.gallery.contract.MainNavigator
 import com.oss.gallery.contract.ToolbarHandler
 import com.oss.gallery.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), MainNavigator, SearchView.OnQueryTextListener {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 

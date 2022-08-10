@@ -22,7 +22,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_input_et"
             style="@style/EditTextStyle"
-            android:inputType="textPassword"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+            android:inputType="textFilter"
             android:maxLength="256" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,8 +49,8 @@
             app:maskCharacter="_"
             app:maskStyle="normal" />
     </com.google.android.material.textfield.TextInputLayout>
-    <!--Piece of shit-->
 
+    <!--Piece of shit-->
     <com.oss.gallery.ui.custom_views.LoadingButton
         android:id="@+id/login_btn"
         style="@style/loading_button"

@@ -12,9 +12,11 @@ constructor(
     private val baseModelMapper: BasePictureModelMapper
 ) : MainRepository {
 
+    private lateinit var result: NetworkAuthResponse
+
     override suspend fun login(authRequest: NetworkAuthRequest): RequestState<NetworkAuthResponse> {
         return safeApiCall {
-            apiService.login(authRequest)
+            apiService.login(authRequest).also { result = it }
         }
     }
 
