@@ -4,13 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import com.bumptech.glide.Glide
 import com.oss.gallery.R
+import com.oss.gallery.data.model.BasePictureModel
 import com.oss.gallery.databinding.FragmentPostDetailsBinding
 import com.oss.gallery.ui.base_fragments.BaseMainFragments
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
 
     private lateinit var binding: FragmentPostDetailsBinding
+    private lateinit var _state: BasePictureModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,11 +24,29 @@ class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
     ): View {
         binding = FragmentPostDetailsBinding.inflate(inflater, container, false)
 
+        savedInstanceState?.get(ARG_KEY)?.let {
+            initViews(it as BasePictureModel)
+        }
+
+        arguments?.getParcelable<BasePictureModel>(ARG_KEY)?.let {
+            initViews(it)
+        }
 
         return binding.root
     }
 
-    private fun initViews() = with(binding) {
+    private fun initViews(source: BasePictureModel) = with(binding) {
+        _state = source
+
+        Glide.with(root)
+            .load(source.photoUrl)
+            .centerCrop()
+            .into(photo)
+
+        title.text = source.title
+        publicationDate.text = source.publicationDate
+        content.text = source.content
+
         // TODO info exchange via fragments API (extend the navigator functionality)
 //        navigator().listenResult(Results::class.java, viewLifecycleOwner) { source ->
 //            this@MovieDetailsFragment.result = source
@@ -30,7 +54,20 @@ class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
 //        }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(ARG_KEY, _state)
+    }
+
     companion object {
-        // TODO  data transfer via CustomDelegator
+
+        @JvmStatic
+        private val ARG_KEY: String = PostDetailsFragment::class.java.name
+
+        @JvmStatic
+        fun newInstance(postDetails: BasePictureModel): PostDetailsFragment =
+            PostDetailsFragment().also {
+                it.arguments = bundleOf(ARG_KEY to postDetails)
+            }
     }
 }
