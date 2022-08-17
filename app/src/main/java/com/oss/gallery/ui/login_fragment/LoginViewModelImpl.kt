@@ -21,7 +21,7 @@ class LoginViewModelImpl
 constructor(
     private val interactor: InteractorImpl,
     @IoDispatcher
-    private val IoDispatcher: CoroutineDispatcher
+    private val IoDispatcher: CoroutineDispatcher,
 ) : ViewModel(), LoginViewModel {
 
     override val authUiStateFlow = MutableStateFlow<AuthUiStates>(AuthUiStates.Empty)

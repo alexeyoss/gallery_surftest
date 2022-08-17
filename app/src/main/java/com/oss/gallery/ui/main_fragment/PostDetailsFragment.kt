@@ -4,19 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.oss.gallery.R
 import com.oss.gallery.data.model.BasePictureModel
 import com.oss.gallery.databinding.FragmentPostDetailsBinding
 import com.oss.gallery.ui.base_fragments.BaseMainFragments
+import com.oss.gallery.utils.argumentNullable
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
 
     private lateinit var binding: FragmentPostDetailsBinding
-    private lateinit var _state: BasePictureModel
+
+    private var _state by argumentNullable<BasePictureModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,12 +47,6 @@ class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
         title.text = source.title
         publicationDate.text = source.publicationDate
         content.text = source.content
-
-        // TODO info exchange via fragments API (extend the navigator functionality)
-//        navigator().listenResult(Results::class.java, viewLifecycleOwner) { source ->
-//            this@MovieDetailsFragment.result = source
-//            initViews(source)
-//        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -66,8 +61,8 @@ class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
 
         @JvmStatic
         fun newInstance(postDetails: BasePictureModel): PostDetailsFragment =
-            PostDetailsFragment().also {
-                it.arguments = bundleOf(ARG_KEY to postDetails)
+            PostDetailsFragment().apply {
+                this._state = postDetails
             }
     }
 }

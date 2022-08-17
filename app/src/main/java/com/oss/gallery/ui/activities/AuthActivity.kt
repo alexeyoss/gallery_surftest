@@ -39,9 +39,9 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
 //            val intent = Intent(this, MainActivity::class.java)
 //            startActivity(intent)
 //        } else {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, LoginFragment())
-                .commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, LoginFragment())
+            .commit()
 //        }
 
         setSupportActionBar(binding.Toolbar)
@@ -62,6 +62,6 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
     }
 
     companion object {
-        const val SPLASH_DELAY = 500L
+        const val SPLASH_DELAY = 800L
     }
 }

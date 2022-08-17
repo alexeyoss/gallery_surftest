@@ -82,8 +82,8 @@ dependencies {
     implementation "com.github.santalu:maskara:1.0.0"
     // CardView
     implementation "androidx.cardview:cardview:1.0.0"
-    // Logging
-//    implementation "com.jakewharton.timber:timber:5.0.1"
+    // DataStore preference
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
 }
 kapt {
