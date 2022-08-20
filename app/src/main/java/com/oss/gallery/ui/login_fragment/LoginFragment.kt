@@ -5,11 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.oss.gallery.R
+import com.oss.gallery.contract.navigator
 import com.oss.gallery.data.network.request.NetworkAuthRequest
 import com.oss.gallery.databinding.FragmentLoginBinding
 import com.oss.gallery.ui.base_fragments.BaseAuthFragments
+import com.oss.gallery.ui.states.AuthUiStates
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
@@ -35,21 +41,21 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
             mViewModel.login(getCredentialsFromUi())
         }
 
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                mViewModel.authUiStateFlow.collect { uiState ->
-//                    when (uiState) {
-//                        is AuthUiStates.Success -> navigator().launchScreen()
-//                        is AuthUiStates.Error -> {
-//                            loginBtn.loading = false
-//                            // Show SnackBar
-//                        }
-//                        is AuthUiStates.Empty -> Unit
-//                        is AuthUiStates.Loading -> Unit
-//                    }
-//                }
-//            }
-//        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mViewModel.authUiStateFlow.collect { uiState ->
+                    when (uiState) {
+                        is AuthUiStates.Success -> navigator().launchScreen()
+                        is AuthUiStates.Error -> {
+                            loginBtn.loading = false
+                            // Show SnackBar
+                        }
+                        is AuthUiStates.Empty -> Unit
+                        is AuthUiStates.Loading -> Unit
+                    }
+                }
+            }
+        }
     }
 
     private fun initViews() = with(binding) {
@@ -58,6 +64,7 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
     }
 
     private fun getCredentialsFromUi(): NetworkAuthRequest =
+        // TODO validation process
         NetworkAuthRequest(
             with(binding) {
                 loginInputLayout.prefixText.toString() + loginInputEt.text.toString()

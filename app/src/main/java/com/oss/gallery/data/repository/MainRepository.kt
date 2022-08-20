@@ -8,5 +8,5 @@ import com.oss.gallery.data.network.response.NetworkPictureResponse
 interface MainRepository {
     suspend fun login(authRequest: NetworkAuthRequest): RequestState<NetworkAuthResponse>
     suspend fun logout()
-    suspend fun getPictures(): RequestState<NetworkPictureResponse>
+    suspend fun getPicturesFromNetwork(): RequestState<NetworkPictureResponse>
 }

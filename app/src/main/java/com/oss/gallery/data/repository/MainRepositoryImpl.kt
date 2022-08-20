@@ -30,7 +30,7 @@ constructor(
         apiService.logout(result.token)
     }
 
-    override suspend fun getPictures(): RequestState<NetworkPictureResponse> {
+    override suspend fun getPicturesFromNetwork(): RequestState<NetworkPictureResponse> {
         return safeApiCall {
             apiService.getPictures(result.token)
         }

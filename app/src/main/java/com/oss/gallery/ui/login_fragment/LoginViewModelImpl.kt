@@ -32,10 +32,10 @@ constructor(
             interactor.login(authRequest)
                 .onEach { authUiState ->
                     when (authUiState) {
-                        is AuthUiStates.Empty -> {}
-                        is AuthUiStates.Loading -> {}
+                        is AuthUiStates.Empty -> authUiStateFlow.emit(authUiState)
+                        is AuthUiStates.Loading -> authUiStateFlow.emit(authUiState)
                         is AuthUiStates.Success -> authUiStateFlow.emit(authUiState)
-                        is AuthUiStates.Error -> {}
+                        is AuthUiStates.Error -> authUiStateFlow.emit(authUiState)
                     }
                 }
                 .launchIn(viewModelScope)

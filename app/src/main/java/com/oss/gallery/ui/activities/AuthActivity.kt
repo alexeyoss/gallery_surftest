@@ -53,7 +53,7 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
     }
 
     override fun launchScreen() {
-        val intent = Intent(this, MainActivity::class.java) //TODO
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 

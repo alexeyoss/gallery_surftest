@@ -12,7 +12,7 @@ ext {
     dagger_version = "2.41"
     glide_version = "4.13.0"
     activityKtx = "1.5.1"
-    fragmentKtx = "1.5.1"
+    fragmentKtx = "1.5.2"
     navigatio_version = "2.5.1"
 }
 
