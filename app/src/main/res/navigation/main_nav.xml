@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
     app:startDestination="@id/mainFragment">
-
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.oss.gallery.ui.main_fragment.MainFragment"
         android:label="Галерея"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_postDetailsFragment"
             app:destination="@id/postDetailsFragment" />
@@ -28,7 +27,7 @@
         android:id="@+id/postDetailsFragment"
         android:name="com.oss.gallery.ui.main_fragment.PostDetailsFragment"
         android:label="fragment_post_details"
-        tools:layout="@layout/fragment_post_details" >
+        tools:layout="@layout/fragment_post_details">
         <action
             android:id="@+id/action_postDetailsFragment_to_mainFragment"
             app:destination="@id/mainFragment" />

@@ -9,6 +9,5 @@
         android:title="@string/customSearchIcon"
         android:visible="true"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-
         app:showAsAction="always" />
 </menu>

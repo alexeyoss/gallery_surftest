@@ -10,7 +10,6 @@ import kotlin.reflect.KProperty
 fun <T : Any> argumentNullable(): ReadWriteProperty<Fragment, T?> =
     FragmentNullableArgumentDelegate()
 
-
 class FragmentNullableArgumentDelegate<T : Any?> :
     ReadWriteProperty<Fragment, T?> {
 

@@ -19,12 +19,10 @@
     <dimen name="loading_button_marginTop">20dp</dimen>
     <dimen name="loading_button_paddingTop">11dp</dimen>
     <dimen name="loading_button_paddingBottom">13dp</dimen>
-
     <!--SnackBar settings-->
     <dimen name="snackBar_text_size">14dp</dimen>
     <dimen name="snackBar_paddingHorizontal">24dp</dimen>
     <dimen name="snackBar_paddingVertical">14dp</dimen>
-
     <!--Custom menu item-->
     <dimen name="customMenuItem_padding">16dp</dimen>
 </resources>

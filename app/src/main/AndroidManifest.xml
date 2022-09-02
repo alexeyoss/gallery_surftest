@@ -20,7 +20,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Gallery" />
         <activity
-            android:name="com.oss.gallery.ui.activities.AuthActivity"
+            android:name="com.oss.gallery.ui.activities.auth_activity.AuthActivity"
             android:exported="true"
             android:noHistory="true"
             android:screenOrientation="portrait"

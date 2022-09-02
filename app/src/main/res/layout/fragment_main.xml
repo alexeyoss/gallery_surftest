@@ -14,7 +14,5 @@
             android:layout_width="match_parent"
             tools:listitem="@layout/item_main_fragment"
             android:layout_height="match_parent" />
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 </FrameLayout>
