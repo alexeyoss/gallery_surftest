@@ -18,7 +18,7 @@ constructor(
 ) : AuthInteractor {
 
     override suspend fun login(authRequest: NetworkAuthRequest): Flow<AuthUiStates> {
-        // TODO Validation before the using the API method
+        // TODO Validation before the using the API  method
         return buildRequestFlow {
             mainRepository.login(authRequest)
         }
