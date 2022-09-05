@@ -11,10 +11,12 @@ import com.oss.gallery.BuildConfig
 import com.oss.gallery.R
 import com.oss.gallery.contract.AuthNavigator
 import com.oss.gallery.databinding.ActivityAuthBinding
-import com.oss.gallery.ui.activities.MainActivity
+import com.oss.gallery.ui.activities.main_activity.MainActivity
 import com.oss.gallery.ui.login_fragment.LoginFragment
+import com.oss.gallery.ui.states.AuthUiStates
 import com.oss.gallery.ui.states.TokenState
 import com.oss.gallery.utils.collectOnLifecycle
+import com.oss.gallery.utils.replaceFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,24 +57,21 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
         viewModel.tokenState.collectOnLifecycle(this) { tokenState ->
             when (tokenState) {
                 is TokenState.Exist -> {
-                    token = tokenState.token
-                    validateToken(token)
+                    if (tokenState.token.isNotEmpty()) {
+                        viewModel.getPicturesFromNetwork("Token $token")
+                    } else replaceFragment(LoginFragment(), addStack = false)
                 }
-                is TokenState.Empty -> {
-                    token = tokenState.token
-                    validateToken(token)
-                }
+                is TokenState.Empty -> Unit
             }
         }
-    }
 
-    private fun validateToken(token: String) {
-        if (token.isNotEmpty()) {
-            launchScreen()
-        } else {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, LoginFragment())
-                .commit()
+        viewModel.authUiState.collectOnLifecycle(this) { authUiState ->
+            when (authUiState) {
+                is AuthUiStates.Success<*> -> launchScreen()
+                is AuthUiStates.Empty -> Unit
+                is AuthUiStates.Loading -> Unit
+                is AuthUiStates.Error<*> -> replaceFragment(LoginFragment(), addStack = false)
+            }
         }
     }
 

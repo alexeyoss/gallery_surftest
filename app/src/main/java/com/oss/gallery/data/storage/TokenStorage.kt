@@ -42,7 +42,6 @@ class TokenStorage(
     suspend fun getToken(): String = withContext(IoDispatcher) {
         val data = context.dataStore.data
             .map { it[tokenKey] }
-            .catch { emit("") }
             .first()
         return@withContext data ?: ""
     }

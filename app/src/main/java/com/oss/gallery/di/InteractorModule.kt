@@ -1,10 +1,7 @@
 package com.oss.gallery.di
 
-import com.oss.gallery.data.network.ApiService
-import com.oss.gallery.data.repository.BasePictureModelMapper
 import com.oss.gallery.data.repository.MainRepositoryImpl
-import com.oss.gallery.data.storage.TokenStorage
-import com.oss.gallery.ui.interactor.InteractorImpl
+import com.oss.gallery.ui.interactors.AuthInteractorImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,23 +16,10 @@ object InteractorModule {
     @Provides
     fun provideInteractor(
         mainRepository: MainRepositoryImpl
-    ): InteractorImpl = InteractorImpl(mainRepository)
+    ): AuthInteractorImpl = AuthInteractorImpl(mainRepository)
 
-    @Singleton
-    @Provides
-    fun provideRepository(
-        apiService: ApiService,
-        tokenStorage: TokenStorage,
-        baseModelMapper: BasePictureModelMapper
-    ): MainRepositoryImpl {
-        return MainRepositoryImpl(
-            apiService,
-            tokenStorage,
-            baseModelMapper
-        )
-    }
 
-    @Singleton
-    @Provides
-    fun provideBasePictureModelMapper(): BasePictureModelMapper = BasePictureModelMapper()
+//    @Singleton
+//    @Provides
+//    fun provideBasePictureModelMapper(): BasePictureModelMapper = BasePictureModelMapper()
 }

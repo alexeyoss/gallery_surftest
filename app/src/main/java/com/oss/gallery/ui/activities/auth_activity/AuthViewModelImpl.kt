@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oss.gallery.data.network.request.NetworkAuthRequest
 import com.oss.gallery.di.IoDispatcher
-import com.oss.gallery.ui.interactor.InteractorImpl
+import com.oss.gallery.ui.interactors.AuthInteractorImpl
+import com.oss.gallery.ui.states.AuthUiStates
 import com.oss.gallery.ui.states.TokenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,32 +19,35 @@ import javax.inject.Inject
 class AuthViewModelImpl
 @Inject
 constructor(
-    private val interactor: InteractorImpl,
+    private val interactor: AuthInteractorImpl,
     @IoDispatcher
     private val IoDispatcher: CoroutineDispatcher
 ) : ViewModel(), AuthViewModel {
 
-    override val tokenState = MutableStateFlow<TokenState>(TokenState.Exist(""))
+    override val tokenState = MutableStateFlow<TokenState>(TokenState.Empty)
+    override val authUiState = MutableStateFlow<AuthUiStates>(AuthUiStates.Empty)
 
     override fun login(authRequest: NetworkAuthRequest) {
         viewModelScope.launch(IoDispatcher) {
             interactor.login(authRequest)
-                .onEach {
-                    when (it) {
-                    }
-                }.launchIn(viewModelScope)
+                .onEach { authUiState.emit(it) }
+                .launchIn(viewModelScope)
         }
     }
 
     override fun checkTokenStatus() {
         viewModelScope.launch(IoDispatcher) {
             interactor.checkTokenStatus()
-                .onEach {
-                    when (it) {
-                        is TokenState.Exist -> tokenState.emit(it)
-                        else -> tokenState.emit(it)
-                    }
-                }.launchIn(viewModelScope)
+                .onEach { tokenState.emit(it) }
+                .launchIn(viewModelScope)
+        }
+    }
+
+    override fun getPicturesFromNetwork(token: String) {
+        viewModelScope.launch(IoDispatcher) {
+            interactor.getPictureFromTheNetwork(token)
+                .onEach { authUiState.emit(it) }
+                .launchIn(viewModelScope)
         }
     }
 }

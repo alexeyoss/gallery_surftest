@@ -4,12 +4,10 @@ import android.util.Log
 import com.oss.gallery.data.storage.StorageRequestState
 
 suspend fun <T> safeStorageCall(
-    call: suspend () -> T
+    storageCall: suspend () -> T
 ): StorageRequestState<T> = runCatching {
-    StorageRequestState.Success(
-        call()
-    )
+    StorageRequestState.Success(storageCall())
 }.getOrElse {
     Log.w("WARN", "TokenStorage troubles - $it")
-    StorageRequestState.Error("")
+    StorageRequestState.Error
 }

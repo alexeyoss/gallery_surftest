@@ -1,4 +1,4 @@
-package com.oss.gallery.ui.activities
+package com.oss.gallery.ui.activities.main_activity
 
 import android.os.Bundle
 import android.view.Menu

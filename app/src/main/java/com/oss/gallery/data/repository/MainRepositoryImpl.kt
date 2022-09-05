@@ -10,42 +10,43 @@ import com.oss.gallery.data.storage.TokenStorage
 import com.oss.gallery.utils.safeApiCall
 import com.oss.gallery.utils.safeStorageCall
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton // TODO debatable ?
 class MainRepositoryImpl
 @Inject
 constructor(
     private val apiService: ApiService,
-    private val tokenStorage: TokenStorage,
-    private val baseModelMapper: BasePictureModelMapper
+    private val tokenStorage: TokenStorage
 ) : MainRepository {
-
-    private lateinit var result: NetworkAuthResponse
 
     override suspend fun login(authRequest: NetworkAuthRequest): NetworkRequestState<NetworkAuthResponse> {
         return safeApiCall {
-            apiService.login(authRequest).also {
-                result = it
-                tokenStorage.saveToken(result.token)
-            }
+            apiService.login(authRequest)
+//                .also { networkAuthResponse ->
+//                saveTokenIntoStorage(networkAuthResponse.token)
+//            }
         }
     }
 
-    override suspend fun logout() {
-        apiService.logout(result.token)
+    override suspend fun logout(token: String) {
+        apiService.logout(token)
     }
 
-    override suspend fun getPicturesFromNetwork(): NetworkRequestState<NetworkPictureResponse> {
+    override suspend fun getPicturesFromNetwork(token: String): NetworkRequestState<NetworkPictureResponse> {
         return safeApiCall {
-            apiService.getPictures(result.token)
+            apiService.getPictures(token)
         }
     }
 
-    override suspend fun checkTokenStatus(): StorageRequestState<String> {
+    // TODO  implement the lifetime value of token on the server
+    override suspend fun getTokenFromStorage(): StorageRequestState<String> {
         return safeStorageCall {
-            tokenStorage.getToken() // TODO Checking the token status on the server
-            // TODO  implement the lifetime value of token on the server
+            tokenStorage.getToken()
+        }
+    }
+
+    override suspend fun saveTokenIntoStorage(token: String): StorageRequestState<Boolean> {
+        return safeStorageCall {
+            tokenStorage.saveToken(token)
         }
     }
 }

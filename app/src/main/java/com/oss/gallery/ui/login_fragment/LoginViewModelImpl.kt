@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oss.gallery.data.network.request.NetworkAuthRequest
 import com.oss.gallery.di.IoDispatcher
-import com.oss.gallery.ui.interactor.InteractorImpl
+import com.oss.gallery.ui.interactors.AuthInteractorImpl
 import com.oss.gallery.ui.states.AuthUiEvents
 import com.oss.gallery.ui.states.AuthUiStates
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class LoginViewModelImpl
 @Inject
 constructor(
-    private val interactor: InteractorImpl,
+    private val interactor: AuthInteractorImpl,
     @IoDispatcher
     private val IoDispatcher: CoroutineDispatcher,
 ) : ViewModel(), LoginViewModel {
@@ -30,14 +30,7 @@ constructor(
     override fun login(authRequest: NetworkAuthRequest) {
         viewModelScope.launch(IoDispatcher) {
             interactor.login(authRequest)
-                .onEach { authUiState ->
-                    when (authUiState) {
-                        is AuthUiStates.Empty -> authUiStateFlow.emit(authUiState)
-                        is AuthUiStates.Loading -> authUiStateFlow.emit(authUiState)
-                        is AuthUiStates.Success -> authUiStateFlow.emit(authUiState)
-                        is AuthUiStates.Error -> authUiStateFlow.emit(authUiState)
-                    }
-                }
+                .onEach { authUiStateFlow.emit(it) }
                 .launchIn(viewModelScope)
         }
     }

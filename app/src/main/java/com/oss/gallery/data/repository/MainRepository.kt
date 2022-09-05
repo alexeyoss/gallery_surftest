@@ -8,7 +8,8 @@ import com.oss.gallery.data.storage.StorageRequestState
 
 interface MainRepository {
     suspend fun login(authRequest: NetworkAuthRequest): NetworkRequestState<NetworkAuthResponse>
-    suspend fun logout()
-    suspend fun getPicturesFromNetwork(): NetworkRequestState<NetworkPictureResponse>
-    suspend fun checkTokenStatus(): StorageRequestState<String>
+    suspend fun logout(token: String)
+    suspend fun getPicturesFromNetwork(token: String): NetworkRequestState<NetworkPictureResponse>
+    suspend fun getTokenFromStorage(): StorageRequestState<String>
+    suspend fun saveTokenIntoStorage(token: String): StorageRequestState<Boolean>
 }
