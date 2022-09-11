@@ -4,17 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.textfield.TextInputLayout
 import com.oss.gallery.R
 import com.oss.gallery.contract.navigator
 import com.oss.gallery.data.network.ApiService
 import com.oss.gallery.data.network.request.NetworkAuthRequest
-import com.oss.gallery.data.network.response.NetworkAuthResponse
 import com.oss.gallery.databinding.FragmentLoginBinding
 import com.oss.gallery.ui.base_fragments.BaseAuthFragments
 import com.oss.gallery.ui.states.AuthUiStates
+import com.oss.gallery.ui.states.ValidationState
 import com.oss.gallery.utils.collectOnLifecycle
+import com.oss.gallery.utils.textChanges
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,19 +47,91 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
 
     private fun initListeners() = with(binding) {
         // TODO loginEditText using Regex mask
+
         loginBtn.setOnClickListener {
-            viewModel.login(getCredentialsFromUi())
+            viewModel.validateLoginForm(getNetworkAuthRequest())
         }
+
+        loginInputEt.textChanges()
+            .debounce(200)
+            .onEach { refreshTextInputLayout(loginInputLayout) }
+            .launchIn(lifecycleScope)
+
+        passwordInputEt.textChanges()
+            .debounce(200)
+            .onEach { refreshTextInputLayout(passwordInputLayout) }
+            .launchIn(lifecycleScope)
 
         viewModel.authUiStateFlow.collectOnLifecycle(this@LoginFragment) { uiState ->
             when (uiState) {
                 is AuthUiStates.Success<*> -> navigator().launchScreen()
                 is AuthUiStates.Error<*> -> {
                     loginBtn.loading = false
+                    //TODO network error
                 }
                 is AuthUiStates.Empty -> Unit
                 is AuthUiStates.Loading -> Unit
             }
+        }
+
+        viewModel.loginValidationFlow.collectOnLifecycle(this@LoginFragment) { validationState ->
+            when (validationState) {
+                is ValidationState.Initial -> Unit
+                is ValidationState.EmptyFiledError -> {
+                    loginBtn.loading = false
+                    loginInputLayout.setErrorStateForTextInputLayout(
+                        validationState.message
+                    )
+                }
+
+                is ValidationState.IncorrectFiledError -> {
+                    loginBtn.loading = false
+                    loginInputLayout.setErrorStateForTextInputLayout(
+                        validationState.message
+                    )
+                    Toast.makeText(
+                        context,
+                        validationState.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } // TODO replace by CustomSnackBar
+                is ValidationState.Successful -> Unit
+            }
+        }
+
+        viewModel.passwordValidationFlow.collectOnLifecycle(this@LoginFragment) { validationState ->
+            when (validationState) {
+                is ValidationState.Initial -> Unit
+                is ValidationState.EmptyFiledError -> {
+                    loginBtn.loading = false
+                    passwordInputLayout.setErrorStateForTextInputLayout(
+                        validationState.message
+                    )
+                }
+                is ValidationState.IncorrectFiledError -> {
+                    loginBtn.loading = false
+                    passwordInputLayout.setErrorStateForTextInputLayout(
+                        validationState.message
+                    )
+                    Toast.makeText(
+                        context,
+                        validationState.message,
+                        Toast.LENGTH_SHORT
+                    ).show() // TODO replace by CustomSnackBar
+                }
+                is ValidationState.Successful -> Unit
+            }
+        }
+
+        viewModel.commonValidationFlow.collectOnLifecycle(this@LoginFragment) {
+            if (it) viewModel.login(getNetworkAuthRequest())
+        }
+    }
+
+    private fun refreshTextInputLayout(textInputLayout: TextInputLayout) {
+        textInputLayout.apply {
+            error = ""
+            boxStrokeColor = R.color.black
         }
     }
 
@@ -61,15 +140,25 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
         passwordInputLayout.isHelperTextEnabled = false
     }
 
-    private fun getCredentialsFromUi(): NetworkAuthRequest =
-        // TODO validation process
-        NetworkAuthRequest(
+    private fun TextInputLayout.setErrorStateForTextInputLayout(
+        message: String
+    ) {
+        apply {
+            error = message
+            boxStrokeColor = R.color.input_stroke_ErrorColor
+            errorIconDrawable = null
+        }
+    }
+
+    private fun getNetworkAuthRequest(): NetworkAuthRequest {
+        return NetworkAuthRequest(
             with(binding) {
                 loginInputLayout.prefixText.toString() + loginInputEt.text.toString()
                     .filter { it.isDigit() }
             },
             binding.passwordInputEt.text.toString()
         )
+    }
 
     override fun onDestroy() = with(binding) {
         super.onDestroy()

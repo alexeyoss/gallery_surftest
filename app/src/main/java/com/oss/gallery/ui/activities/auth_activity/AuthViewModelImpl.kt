@@ -27,6 +27,10 @@ constructor(
     override val tokenState = MutableStateFlow<TokenState>(TokenState.Empty)
     override val authUiState = MutableStateFlow<AuthUiStates>(AuthUiStates.Empty)
 
+    init {
+        checkTokenStatus()
+    }
+
     override fun login(authRequest: NetworkAuthRequest) {
         viewModelScope.launch(IoDispatcher) {
             interactor.login(authRequest)

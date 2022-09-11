@@ -3,12 +3,10 @@ package com.oss.gallery.data.network
 import com.oss.gallery.data.network.request.NetworkAuthRequest
 import com.oss.gallery.data.network.response.NetworkAuthResponse
 import com.oss.gallery.data.network.response.NetworkPictureResponse
-import org.jetbrains.annotations.TestOnly
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface ApiService {
 

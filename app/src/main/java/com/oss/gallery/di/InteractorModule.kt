@@ -18,7 +18,6 @@ object InteractorModule {
         mainRepository: MainRepositoryImpl
     ): AuthInteractorImpl = AuthInteractorImpl(mainRepository)
 
-
 //    @Singleton
 //    @Provides
 //    fun provideBasePictureModelMapper(): BasePictureModelMapper = BasePictureModelMapper()

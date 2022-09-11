@@ -21,6 +21,7 @@ constructor(
     override suspend fun login(authRequest: NetworkAuthRequest): NetworkRequestState<NetworkAuthResponse> {
         return safeApiCall {
             apiService.login(authRequest)
+            // TODO safeToken
 //                .also { networkAuthResponse ->
 //                saveTokenIntoStorage(networkAuthResponse.token)
 //            }

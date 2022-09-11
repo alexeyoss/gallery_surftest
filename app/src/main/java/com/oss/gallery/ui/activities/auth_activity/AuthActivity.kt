@@ -35,8 +35,6 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
 
             setKeepOnScreenCondition { keepSplashOnScreen }
 
-            viewModel.checkTokenStatus()
-
             Handler(Looper.getMainLooper()).postDelayed(
                 { keepSplashOnScreen = false },
                 BuildConfig.SPLASH_DELAY // TODO guess the splash delay is not working
