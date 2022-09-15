@@ -1,7 +1,7 @@
 package com.oss.gallery.utils.validations
 
 import com.oss.gallery.R
-import com.oss.gallery.ui.states.ValidationState
+import com.oss.gallery.ui.states.auth_activity_states.ValidationState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Singleton

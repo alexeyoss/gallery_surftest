@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.oss.gallery.data.network.request.NetworkAuthRequest
 import com.oss.gallery.di.IoDispatcher
 import com.oss.gallery.ui.interactors.AuthInteractorImpl
-import com.oss.gallery.ui.states.AuthUiStates
+import com.oss.gallery.ui.states.auth_activity_states.AuthUiStates
 import com.oss.gallery.ui.states.TokenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher

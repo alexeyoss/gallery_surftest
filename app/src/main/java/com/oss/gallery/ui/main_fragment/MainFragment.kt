@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.oss.gallery.R
@@ -17,6 +18,11 @@ class MainFragment : BaseMainFragments(R.layout.fragment_main),
 
     private lateinit var binding: FragmentMainBinding
     private val mAdapter = MainFragmentAdapter(this)
+
+    private val viewModel by viewModels<MainFragmentViewModelImpl>()
+
+    init {
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

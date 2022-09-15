@@ -25,7 +25,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/postDetailsFragment"
-        android:name="com.oss.gallery.ui.main_fragment.PostDetailsFragment"
+        android:name="com.oss.gallery.ui.postdetails_fragment.PostDetailsFragment"
         android:label="fragment_post_details"
         tools:layout="@layout/fragment_post_details">
         <action

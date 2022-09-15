@@ -13,7 +13,7 @@ import com.oss.gallery.contract.AuthNavigator
 import com.oss.gallery.databinding.ActivityAuthBinding
 import com.oss.gallery.ui.activities.main_activity.MainActivity
 import com.oss.gallery.ui.login_fragment.LoginFragment
-import com.oss.gallery.ui.states.AuthUiStates
+import com.oss.gallery.ui.states.auth_activity_states.AuthUiStates
 import com.oss.gallery.ui.states.TokenState
 import com.oss.gallery.utils.collectOnLifecycle
 import com.oss.gallery.utils.replaceFragment

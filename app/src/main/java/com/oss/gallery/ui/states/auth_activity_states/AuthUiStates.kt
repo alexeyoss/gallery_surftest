@@ -1,4 +1,4 @@
-package com.oss.gallery.ui.states
+package com.oss.gallery.ui.states.auth_activity_states
 
 sealed interface AuthUiStates {
     data class Success<T>(internal val data: T) : AuthUiStates

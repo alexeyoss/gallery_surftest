@@ -1,3 +1,3 @@
 package com.oss.gallery.utils.listeners
 
-interface FavoritesFragmentOnClickListener : BaseOnClickListener
+interface FavoritesFragmentOnClickListener : BaseOnClickListener, LikeOnClickListener

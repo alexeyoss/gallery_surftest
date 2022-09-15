@@ -14,8 +14,8 @@ import com.oss.gallery.data.network.ApiService
 import com.oss.gallery.data.network.request.NetworkAuthRequest
 import com.oss.gallery.databinding.FragmentLoginBinding
 import com.oss.gallery.ui.base_fragments.BaseAuthFragments
-import com.oss.gallery.ui.states.AuthUiStates
-import com.oss.gallery.ui.states.ValidationState
+import com.oss.gallery.ui.states.auth_activity_states.AuthUiStates
+import com.oss.gallery.ui.states.auth_activity_states.ValidationState
 import com.oss.gallery.utils.collectOnLifecycle
 import com.oss.gallery.utils.textChanges
 import dagger.hilt.android.AndroidEntryPoint

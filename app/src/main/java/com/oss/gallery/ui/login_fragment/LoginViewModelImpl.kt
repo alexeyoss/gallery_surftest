@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.oss.gallery.data.network.request.NetworkAuthRequest
 import com.oss.gallery.di.IoDispatcher
 import com.oss.gallery.ui.interactors.AuthInteractorImpl
-import com.oss.gallery.ui.states.AuthUiEvents
-import com.oss.gallery.ui.states.AuthUiStates
-import com.oss.gallery.ui.states.ValidationState
+import com.oss.gallery.ui.states.auth_activity_states.AuthUiEvents
+import com.oss.gallery.ui.states.auth_activity_states.AuthUiStates
+import com.oss.gallery.ui.states.auth_activity_states.ValidationState
 import com.oss.gallery.utils.validations.LoginValidator
 import com.oss.gallery.utils.validations.PasswordValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,12 +28,12 @@ constructor(
     private val loginValidator: LoginValidator,
     private val passwordValidator: PasswordValidator,
     @IoDispatcher
-    private val ioDispatcher: CoroutineDispatcher,
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel(), LoginViewModel {
 
     override val authUiStateFlow = MutableStateFlow<AuthUiStates>(AuthUiStates.Empty)
     override val authUiEventFlow =
-        MutableStateFlow<AuthUiEvents>(AuthUiEvents.Login) // TODO implement
+        MutableStateFlow<AuthUiEvents>(AuthUiEvents.Login) // TODO not implemented
     override val loginValidationFlow =
         MutableStateFlow<ValidationState>(ValidationState.Initial)
     override val passwordValidationFlow =

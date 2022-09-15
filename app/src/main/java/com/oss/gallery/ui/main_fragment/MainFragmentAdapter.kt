@@ -15,7 +15,7 @@ class MainFragmentAdapter(
     val clickListener: MainFragmentOnClickListener
 ) : RecyclerView.Adapter<MainFragmentAdapter.mViewHolder>() {
 
-    private var data = listOf<BasePictureModel>()
+    private var data: List<BasePictureModel> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
         return mViewHolder(

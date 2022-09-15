@@ -1,4 +1,4 @@
-package com.oss.gallery.ui.main_fragment
+package com.oss.gallery.ui.postdetails_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
