@@ -1,10 +1,10 @@
 package com.oss.gallery.ui.activities.main_activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.NavHostFragment
@@ -15,10 +15,12 @@ import com.oss.gallery.R
 import com.oss.gallery.contract.MainNavigator
 import com.oss.gallery.contract.ToolbarHandler
 import com.oss.gallery.databinding.ActivityMainBinding
+import com.oss.gallery.ui.activities.auth_activity.AuthActivity
+import com.oss.gallery.ui.profile_fragment.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), MainNavigator, SearchView.OnQueryTextListener {
+class MainActivity : AppCompatActivity(), MainNavigator {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     private val currentFragment: Fragment
@@ -64,10 +66,11 @@ class MainActivity : AppCompatActivity(), MainNavigator, SearchView.OnQueryTextL
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.option_menu, menu)
 
-        val search = menu.findItem(R.id.app_bar_search)
-        val searchView = search.actionView as SearchView
-        searchView.isSubmitButtonEnabled = false
-        searchView.setOnQueryTextListener(this)
+        // TODO the SearchBar implementation
+//        val search = menu.findItem(R.id.app_bar_search)
+//        val searchView = search.actionView as SearchView
+//        searchView.isSubmitButtonEnabled = false
+//        searchView.setOnQueryTextListener(this)
 
         return super.onCreateOptionsMenu(menu)
     }
@@ -87,6 +90,16 @@ class MainActivity : AppCompatActivity(), MainNavigator, SearchView.OnQueryTextL
         }
     }
 
+    override fun changeActivity(fragment: Fragment?) {
+        when (fragment) {
+            is ProfileFragment -> {
+                startActivity(
+                    Intent(this, AuthActivity::class.java)
+                )
+            }
+        }
+    }
+
     override fun hideBottomNavigation() {
         TODO("Not yet implemented")
     }
@@ -95,21 +108,6 @@ class MainActivity : AppCompatActivity(), MainNavigator, SearchView.OnQueryTextL
         TODO("Not yet implemented")
     }
 
-    override fun launchScreen() {
-        TODO("Not yet implemented")
-    }
-
     override fun goBack() {
-        TODO("Not yet implemented")
-    }
-
-    // TODO Options menu TextChangeListener build base it ont Flow
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        return false
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        return false
     }
 }

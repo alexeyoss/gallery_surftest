@@ -15,4 +15,8 @@
     <string name="empty_field_error">Поле не может быть пустым</string>
     <string name="incorrect_phone_format">Не верный формат номера телефона</string>
     <string name="incorrect_password_length">Пароль должен быть от 6 до 255 символов</string>
+    <!--AlertDialog resources-->
+    <string name="reject_text">НЕТ</string>
+    <string name="accept_text">ДА, ТОЧНО</string>
+    <string name="exit_text">Вы точно хотите выйти из приложения?</string>
 </resources>

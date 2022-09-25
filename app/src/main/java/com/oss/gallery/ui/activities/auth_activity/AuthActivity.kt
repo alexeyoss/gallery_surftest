@@ -7,6 +7,7 @@ import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.fragment.app.Fragment
 import com.oss.gallery.BuildConfig
 import com.oss.gallery.R
 import com.oss.gallery.contract.AuthNavigator
@@ -14,7 +15,6 @@ import com.oss.gallery.databinding.ActivityAuthBinding
 import com.oss.gallery.ui.activities.main_activity.MainActivity
 import com.oss.gallery.ui.login_fragment.LoginFragment
 import com.oss.gallery.ui.states.auth_activity_states.AuthUiStates
-import com.oss.gallery.ui.states.TokenState
 import com.oss.gallery.utils.collectOnLifecycle
 import com.oss.gallery.utils.replaceFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +25,9 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
     private val binding by lazy { ActivityAuthBinding.inflate(layoutInflater) }
     private val viewModel by viewModels<AuthViewModelImpl>()
     private var keepSplashOnScreen = true
-    private lateinit var token: String
+
+    private val currentFragment: Fragment
+        get() = supportFragmentManager.findFragmentById(R.id.fragmentContainer)!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,20 +54,17 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
     }
 
     private fun initListeners() {
-        viewModel.tokenState.collectOnLifecycle(this) { tokenState ->
-            when (tokenState) {
-                is TokenState.Exist -> {
-                    if (tokenState.token.isNotEmpty()) {
-                        viewModel.getPicturesFromNetwork("Token $token")
-                    } else replaceFragment(LoginFragment(), addStack = false)
-                }
-                is TokenState.Empty -> Unit
-            }
+        viewModel.tokenState.collectOnLifecycle(this) { token ->
+            if (token.isNotEmpty()) {
+                viewModel.getPicturesFromNetwork()
+            } else replaceFragment(LoginFragment(), addStack = false)
         }
 
-        viewModel.authUiState.collectOnLifecycle(this) { authUiState ->
+
+        viewModel.authUiState.collectOnLifecycle(this)
+        { authUiState ->
             when (authUiState) {
-                is AuthUiStates.Success<*> -> launchScreen()
+                is AuthUiStates.Success<*> -> changeActivity(null)
                 is AuthUiStates.Empty -> Unit
                 is AuthUiStates.Loading -> Unit
                 is AuthUiStates.Error<*> -> replaceFragment(LoginFragment(), addStack = false)
@@ -73,7 +72,14 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
         }
     }
 
-    override fun launchScreen() {
+    override fun fragmentIsClickable(enable: Boolean) = with(binding) {
+        when (currentFragment) {
+            // TODO not working
+            is LoginFragment -> fragmentContainer.isClickable = enable
+        }
+    }
+
+    override fun changeActivity(fragment: Fragment?) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }

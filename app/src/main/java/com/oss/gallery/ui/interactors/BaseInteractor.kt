@@ -1,4 +1,3 @@
 package com.oss.gallery.ui.interactors
 
-interface BaseInteractor {
-}
+interface BaseInteractor

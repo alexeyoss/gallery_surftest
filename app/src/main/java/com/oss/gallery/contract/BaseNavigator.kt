@@ -1,6 +1,8 @@
 package com.oss.gallery.contract
 
+import androidx.fragment.app.Fragment
+
 interface BaseNavigator {
-    fun launchScreen()
+    fun changeActivity(fragment: Fragment?)
     fun goBack()
 }

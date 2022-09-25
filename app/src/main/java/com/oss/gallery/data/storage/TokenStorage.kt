@@ -44,4 +44,15 @@ class TokenStorage(
             .first()
         return@withContext data ?: ""
     }
+
+    suspend fun deleteToken(): Boolean = withContext(IoDispatcher) {
+        return@withContext try {
+            context.dataStore.edit { prefs ->
+                prefs[tokenKey] = ""
+            }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
 }

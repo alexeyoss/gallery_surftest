@@ -3,6 +3,8 @@ package com.oss.gallery.di
 import android.util.Log
 import com.oss.gallery.BuildConfig
 import com.oss.gallery.data.network.ApiService
+import com.oss.gallery.data.network.interceptors.AuthInterceptorImpl
+import com.oss.gallery.data.storage.TokenStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,9 +29,19 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideAuthInterceptor(tokenStorage: TokenStorage): AuthInterceptorImpl {
+        return AuthInterceptorImpl(tokenStorage)
+    }
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        authInterceptor: AuthInterceptorImpl
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .addNetworkInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
             .callTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
             .build()
     }

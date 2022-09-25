@@ -14,6 +14,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.zip
@@ -31,20 +33,28 @@ constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel(), LoginViewModel {
 
-    override val authUiStateFlow = MutableStateFlow<AuthUiStates>(AuthUiStates.Empty)
-    override val authUiEventFlow =
-        MutableStateFlow<AuthUiEvents>(AuthUiEvents.Login) // TODO not implemented
-    override val loginValidationFlow =
-        MutableStateFlow<ValidationState>(ValidationState.Initial)
-    override val passwordValidationFlow =
-        MutableStateFlow<ValidationState>(ValidationState.Initial)
+    private val _authUiStateFlow = MutableStateFlow<AuthUiStates>(AuthUiStates.Empty)
+    override val authUiStateFlow = _authUiStateFlow.asStateFlow()
 
-    override val commonValidationFlow = MutableSharedFlow<Boolean>()
+    private val _authUiEventFlow =
+        MutableStateFlow<AuthUiEvents>(AuthUiEvents.Login)
+    override val authUiEventFlow = _authUiEventFlow.asStateFlow()
+
+    private val _loginValidationFlow =
+        MutableStateFlow<ValidationState>(ValidationState.Initial)
+    override val loginValidationFlow = _loginValidationFlow.asStateFlow()
+
+    private val _passwordValidationFlow =
+        MutableStateFlow<ValidationState>(ValidationState.Initial)
+    override val passwordValidationFlow = _passwordValidationFlow.asStateFlow()
+
+    private val _commonValidationFlow = MutableSharedFlow<Boolean>()
+    override val commonValidationFlow = _commonValidationFlow.asSharedFlow()
 
     override fun login(authRequest: NetworkAuthRequest) {
         viewModelScope.launch(ioDispatcher) {
             interactor.login(authRequest)
-                .onEach { authUiStateFlow.emit(it) }
+                .onEach { _authUiStateFlow.emit(it) }
                 .launchIn(viewModelScope)
         }
     }
@@ -53,19 +63,19 @@ constructor(
         viewModelScope.launch(ioDispatcher) {
 
             loginValidator.validate(dataModel.phone)
-                .onEach { loginValidationFlow.emit(it) }
+                .onEach { _loginValidationFlow.emit(it) }
                 .launchIn(viewModelScope)
 
             passwordValidator.validate(dataModel.password)
-                .onEach { passwordValidationFlow.emit(it) }
+                .onEach { _passwordValidationFlow.emit(it) }
                 .launchIn(viewModelScope)
 
 
-            loginValidationFlow.zip(passwordValidationFlow) { login, pass ->
+            _loginValidationFlow.zip(_passwordValidationFlow) { login, pass ->
                 Pair(login, pass)
             }.collect {
                 if (it.first is ValidationState.Successful && it.second is ValidationState.Successful) {
-                    commonValidationFlow.emit(true)
+                    _commonValidationFlow.emit(true)
                 }
             }
         }

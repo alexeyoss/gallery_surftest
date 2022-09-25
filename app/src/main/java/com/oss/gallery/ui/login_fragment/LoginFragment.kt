@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputLayout
 import com.oss.gallery.R
 import com.oss.gallery.contract.navigator
-import com.oss.gallery.data.network.ApiService
 import com.oss.gallery.data.network.request.NetworkAuthRequest
 import com.oss.gallery.databinding.FragmentLoginBinding
 import com.oss.gallery.ui.base_fragments.BaseAuthFragments
@@ -22,16 +21,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
 
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModelImpl by viewModels()
-
-    @Inject
-    lateinit var apiService: ApiService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,13 +59,16 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
 
         viewModel.authUiStateFlow.collectOnLifecycle(this@LoginFragment) { uiState ->
             when (uiState) {
-                is AuthUiStates.Success<*> -> navigator().launchScreen()
+                is AuthUiStates.Success<*> -> {
+                    navigator().changeActivity(null)
+                }
                 is AuthUiStates.Error<*> -> {
+                    navigator().fragmentIsClickable(enable = true)
                     loginBtn.loading = false
                     //TODO network error
                 }
                 is AuthUiStates.Empty -> Unit
-                is AuthUiStates.Loading -> Unit
+                is AuthUiStates.Loading -> navigator().fragmentIsClickable(enable = false)
             }
         }
 
@@ -80,14 +78,14 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
                 is ValidationState.EmptyFiledError -> {
                     loginBtn.loading = false
                     loginInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message
+                        validationState.message.toString()
                     )
                 }
 
                 is ValidationState.IncorrectFiledError -> {
                     loginBtn.loading = false
                     loginInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message
+                        validationState.message.toString()
                     )
                     Toast.makeText(
                         context,
@@ -105,13 +103,13 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
                 is ValidationState.EmptyFiledError -> {
                     loginBtn.loading = false
                     passwordInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message
+                        validationState.message.toString()
                     )
                 }
                 is ValidationState.IncorrectFiledError -> {
                     loginBtn.loading = false
                     passwordInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message
+                        validationState.message.toString()
                     )
                     Toast.makeText(
                         context,
@@ -125,6 +123,8 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
 
         viewModel.commonValidationFlow.collectOnLifecycle(this@LoginFragment) {
             if (it) viewModel.login(getNetworkAuthRequest())
+            navigator().fragmentIsClickable(enable = false)
+
         }
     }
 

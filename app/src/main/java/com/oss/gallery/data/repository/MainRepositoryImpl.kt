@@ -5,12 +5,12 @@ import com.oss.gallery.data.network.request.NetworkAuthRequest
 import com.oss.gallery.data.network.request.NetworkRequestState
 import com.oss.gallery.data.network.response.NetworkAuthResponse
 import com.oss.gallery.data.network.response.NetworkPictureResponse
-import com.oss.gallery.data.storage.StorageRequestState
 import com.oss.gallery.data.storage.TokenStorage
 import com.oss.gallery.utils.safeApiCall
-import com.oss.gallery.utils.safeStorageCall
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class MainRepositoryImpl
 @Inject
 constructor(
@@ -21,33 +21,28 @@ constructor(
     override suspend fun login(authRequest: NetworkAuthRequest): NetworkRequestState<NetworkAuthResponse> {
         return safeApiCall {
             apiService.login(authRequest)
-            // TODO safeToken
-//                .also { networkAuthResponse ->
-//                saveTokenIntoStorage(networkAuthResponse.token)
-//            }
+                .also { networkAuthResponse ->
+                    saveTokenIntoStorage(networkAuthResponse.token)
+                }
         }
     }
 
-    override suspend fun logout(token: String) {
-        apiService.logout(token)
-    }
-
-    override suspend fun getPicturesFromNetwork(token: String): NetworkRequestState<NetworkPictureResponse> {
+    override suspend fun logout(): NetworkRequestState<Unit> {
         return safeApiCall {
-            apiService.getPictures(token)
+            apiService.logout()
         }
     }
 
-    // TODO  implement the lifetime value of token on the server
-    override suspend fun getTokenFromStorage(): StorageRequestState<String> {
-        return safeStorageCall {
-            tokenStorage.getToken()
+    override suspend fun getPicturesFromNetwork(): NetworkRequestState<NetworkPictureResponse> {
+        return safeApiCall {
+            apiService.getPictures()
         }
     }
 
-    override suspend fun saveTokenIntoStorage(token: String): StorageRequestState<Boolean> {
-        return safeStorageCall {
-            tokenStorage.saveToken(token)
-        }
-    }
+    override suspend fun getTokenFromStorage(): String = tokenStorage.getToken()
+
+    override suspend fun saveTokenIntoStorage(token: String): Boolean =
+        tokenStorage.saveToken(token)
+
+    override suspend fun cleanStorageResources(): Boolean = tokenStorage.deleteToken()
 }
