@@ -3,7 +3,7 @@ package com.oss.gallery.ui.profile_fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oss.gallery.di.IoDispatcher
-import com.oss.gallery.ui.interactors.MainInteractorImpl
+import com.oss.gallery.ui.interactors.MainInteractor
 import com.oss.gallery.ui.states.main_activity_states.MainUiStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -20,12 +20,13 @@ class ProfileViewModelImpl
 constructor(
     @IoDispatcher
     private val ioDispatcher: CoroutineDispatcher,
-    private val interactor: MainInteractorImpl
+    private val interactor: MainInteractor
 ) : ViewModel(), ProfileViewModel {
 
     private val _logoutFlow = MutableStateFlow<MainUiStates>(MainUiStates.Empty)
     override val logoutFlow = _logoutFlow.asStateFlow()
-    private val _cleanStorageResourcesFlow = MutableStateFlow<MainUiStates>(MainUiStates.Empty)
+    private val _cleanStorageResourcesFlow =
+        MutableStateFlow<MainUiStates>(MainUiStates.Empty)
     override val cleanStorageResourcesFlow = _cleanStorageResourcesFlow.asStateFlow()
 
     override fun logout() {

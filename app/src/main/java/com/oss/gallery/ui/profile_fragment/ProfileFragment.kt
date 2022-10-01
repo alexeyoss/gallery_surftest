@@ -58,22 +58,22 @@ class ProfileFragment : BaseMainFragments(R.layout.fragment_profile) {
             }
         }
 
-//        viewModel.cleanStorageResourcesFlow.collectOnLifecycle(this@ProfileFragment) { mainUIState ->
-//            when (mainUIState) {
-//                is MainUiStates.Empty -> Unit
-//                is MainUiStates.Success<*> -> {
-//                    binding.logoutBtn.loading = false
-//                    navigator().changeActivity()
-//                }
-//                is MainUiStates.Error<*> -> {
-//                    binding.logoutBtn.loading = false
-//                    // TODO showsnackBar
-//                }
-//                is MainUiStates.Loading -> {
-//                    binding.logoutBtn.loading = true
-//                }
-//            }
-//        }
+        viewModel.cleanStorageResourcesFlow.collectOnLifecycle(this@ProfileFragment) { mainUIState ->
+            when (mainUIState) {
+                is MainUiStates.Empty -> Unit
+                is MainUiStates.Success<*> -> {
+                    binding.logoutBtn.loading = false
+                    navigator().changeActivity(this@ProfileFragment)
+                }
+                is MainUiStates.Error<*> -> {
+                    binding.logoutBtn.loading = false
+                    // TODO showsnackBar
+                }
+                is MainUiStates.Loading -> {
+                    binding.logoutBtn.loading = true
+                }
+            }
+        }
 
     }
 
@@ -82,9 +82,12 @@ class ProfileFragment : BaseMainFragments(R.layout.fragment_profile) {
             AlertDialogBuilder.createExitDialog(
                 context = requireContext(),
                 message = R.string.exit_text,
-                onSuccess = {
+                onPositive = {
                     viewModel.logout()
-                } // TODO check how to init the side effects
+                },
+                onNegative = {
+                    binding.logoutBtn.loading = false
+                }
             )
     }
 }

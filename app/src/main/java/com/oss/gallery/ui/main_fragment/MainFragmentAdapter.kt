@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.oss.gallery.R
-import com.oss.gallery.data.model.BasePictureModel
+import com.oss.gallery.data.network.response.NetworkPictureResponse
 import com.oss.gallery.databinding.ItemMainFragmentBinding
 import com.oss.gallery.utils.listeners.MainFragmentOnClickListener
 
@@ -15,7 +15,7 @@ class MainFragmentAdapter(
     val clickListener: MainFragmentOnClickListener
 ) : RecyclerView.Adapter<MainFragmentAdapter.mViewHolder>() {
 
-    private var data: List<BasePictureModel> = emptyList()
+    private var data: List<NetworkPictureResponse> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
         return mViewHolder(
@@ -33,7 +33,7 @@ class MainFragmentAdapter(
 
     override fun getItemCount(): Int = data.size
 
-    fun setData(newData: List<BasePictureModel>) {
+    fun setData(newData: List<NetworkPictureResponse>) {
         val diffCallBack = DiffCallback(data, newData)
         val diffResult = DiffUtil.calculateDiff(diffCallBack, false)
         data = newData
@@ -44,7 +44,7 @@ class MainFragmentAdapter(
         private val binding: ItemMainFragmentBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: BasePictureModel) = with(binding) {
+        fun bind(data: NetworkPictureResponse) = with(binding) {
             Glide.with(itemView.context)
                 .load(data.photoUrl)
                 .centerCrop()
@@ -54,19 +54,19 @@ class MainFragmentAdapter(
             photo.setOnClickListener {
                 clickListener.onViewClicked(data)
             }
-            like.setOnClickListener {
-                clickListener.onLikeClicked(
-                    data.id,
-                    isLiked = false
-                ) // TODO build the data model with additional "like" status. The opposite of the data files
-            }
+//            like.setOnClickListener {
+//                clickListener.onLikeClicked(
+//                    data.id,
+//                    isLiked = false
+//                ) // TODO build the data model with additional "like" status. The opposite of the data files
+//            }
         }
     }
 }
 
 class DiffCallback(
-    private val oldData: List<BasePictureModel>,
-    private val newData: List<BasePictureModel>
+    private val oldData: List<NetworkPictureResponse>,
+    private val newData: List<NetworkPictureResponse>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldData.size
 

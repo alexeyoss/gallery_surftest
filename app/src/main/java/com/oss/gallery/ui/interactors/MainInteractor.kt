@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface MainInteractor : BaseInteractor {
     suspend fun logout(): Flow<MainUiStates>
     suspend fun cleanStorageResources(): Flow<MainUiStates>
+    suspend fun getPictureFromTheNetwork(): Flow<MainUiStates>
 }

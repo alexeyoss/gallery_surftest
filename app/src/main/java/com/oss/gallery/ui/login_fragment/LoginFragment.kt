@@ -16,6 +16,7 @@ import com.oss.gallery.ui.base_fragments.BaseAuthFragments
 import com.oss.gallery.ui.states.auth_activity_states.AuthUiStates
 import com.oss.gallery.ui.states.auth_activity_states.ValidationState
 import com.oss.gallery.utils.collectOnLifecycle
+import com.oss.gallery.utils.setErrorStateForTextInputLayout
 import com.oss.gallery.utils.textChanges
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.debounce
@@ -44,7 +45,7 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
         // TODO loginEditText using Regex mask
 
         loginBtn.setOnClickListener {
-            viewModel.validateLoginForm(getNetworkAuthRequest())
+            viewModel.validateLoginForm(getNetworkAuthRequestModel())
         }
 
         loginInputEt.textChanges()
@@ -122,7 +123,7 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
         }
 
         viewModel.commonValidationFlow.collectOnLifecycle(this@LoginFragment) {
-            if (it) viewModel.login(getNetworkAuthRequest())
+            if (it) viewModel.login(getNetworkAuthRequestModel())
             navigator().fragmentIsClickable(enable = false)
 
         }
@@ -140,17 +141,7 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
         passwordInputLayout.isHelperTextEnabled = false
     }
 
-    private fun TextInputLayout.setErrorStateForTextInputLayout(
-        message: String
-    ) {
-        apply {
-            error = message
-            boxStrokeColor = R.color.input_stroke_ErrorColor
-            errorIconDrawable = null
-        }
-    }
-
-    private fun getNetworkAuthRequest(): NetworkAuthRequest {
+    private fun getNetworkAuthRequestModel(): NetworkAuthRequest {
         return NetworkAuthRequest(
             with(binding) {
                 loginInputLayout.prefixText.toString() + loginInputEt.text.toString()

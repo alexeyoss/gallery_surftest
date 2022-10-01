@@ -10,16 +10,18 @@ object AlertDialogBuilder {
     fun createExitDialog(
         context: Context,
         @StringRes message: Int,
-        onSuccess: () -> Unit
+        onPositive: () -> Unit,
+        onNegative: () -> Unit
     ): AlertDialog {
         return AlertDialog.Builder(context)
             .setCancelable(false)
             .setMessage(message)
             .setPositiveButton(R.string.accept_text) { dialog, _ ->
-                onSuccess()
+                onPositive()
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.reject_text) { dialog, _ ->
+                onNegative()
                 dialog.dismiss()
             }
             .create()

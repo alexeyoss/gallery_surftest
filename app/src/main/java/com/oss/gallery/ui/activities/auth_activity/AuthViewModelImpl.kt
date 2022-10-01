@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oss.gallery.data.network.request.NetworkAuthRequest
 import com.oss.gallery.di.IoDispatcher
-import com.oss.gallery.ui.interactors.AuthInteractorImpl
+import com.oss.gallery.ui.interactors.AuthInteractor
 import com.oss.gallery.ui.states.auth_activity_states.AuthUiStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class AuthViewModelImpl
 @Inject
 constructor(
-    private val interactor: AuthInteractorImpl,
+    private val interactor: AuthInteractor,
     @IoDispatcher
     private val IoDispatcher: CoroutineDispatcher
 ) : ViewModel(), AuthViewModel {

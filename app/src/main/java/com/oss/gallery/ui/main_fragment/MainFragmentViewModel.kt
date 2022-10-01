@@ -5,8 +5,8 @@ import com.oss.gallery.ui.states.main_activity_states.MainUiStates
 import kotlinx.coroutines.flow.StateFlow
 
 interface MainFragmentViewModel {
-    val mainUiStateFlow: StateFlow<MainUiStates>
-    val mainUiEventFlow: StateFlow<MainUiEvents>
+    val picturesUiStateFlow: StateFlow<MainUiStates>
+    val picturesUiEventFlow: StateFlow<MainUiEvents>
 
-    fun getPictures(token: String)
+    fun getPictures()
 }

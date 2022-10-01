@@ -19,5 +19,5 @@ interface ApiService {
     suspend fun logout(): Response<Unit>
 
     @GET("picture")
-    suspend fun getPictures(): NetworkPictureResponse
+    suspend fun getPictures(): List<NetworkPictureResponse>
 }

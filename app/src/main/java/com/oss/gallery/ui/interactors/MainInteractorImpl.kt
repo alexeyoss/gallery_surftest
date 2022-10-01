@@ -26,6 +26,7 @@ constructor(
         }
     }
 
+    // TODO refactoring
     override suspend fun cleanStorageResources(): Flow<MainUiStates> {
         return flow {
             emit(MainUiStates.Loading)
@@ -36,6 +37,27 @@ constructor(
             } else {
                 emit(MainUiStates.Error(result))
             }
+        }
+    }
+
+    override suspend fun getPictureFromTheNetwork(): Flow<MainUiStates> {
+        return buildTestFlow {
+            mainRepository.getPicturesFromNetwork()
+        }
+    }
+
+    private fun <NetworkResponse> buildTestFlow(
+        block: suspend () -> NetworkRequestState<NetworkResponse>
+    ): Flow<MainUiStates> {
+        return flow {
+            emit(MainUiStates.Loading)
+            val result = when (val request = block()) {
+                is NetworkRequestState.Success -> {
+                    MainUiStates.Success(request.data)
+                }
+                else -> MainUiStates.Error(request as ErrorState)
+            }
+            emit(result)
         }
     }
 }

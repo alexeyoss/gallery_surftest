@@ -33,7 +33,7 @@ constructor(
         }
     }
 
-    override suspend fun getPicturesFromNetwork(): NetworkRequestState<NetworkPictureResponse> {
+    override suspend fun getPicturesFromNetwork(): NetworkRequestState<List<NetworkPictureResponse>> {
         return safeApiCall {
             apiService.getPictures()
         }

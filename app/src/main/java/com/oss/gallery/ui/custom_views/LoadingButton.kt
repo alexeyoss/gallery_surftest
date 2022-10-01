@@ -16,7 +16,9 @@ class LoadingButton @JvmOverloads constructor(
 
     private val binding = LoadingButtonBinding.inflate(LayoutInflater.from(context), this)
 
-    private val mListener = OnClickListener { loading = !loading }
+    private val mListener = OnClickListener {
+        loading = !loading
+    }
 
     var loading: Boolean = false
         set(value) {
@@ -40,12 +42,12 @@ class LoadingButton @JvmOverloads constructor(
         attrs: AttributeSet?
     ) {
         if (attrs == null) return
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LoadingButton)
+        context.obtainStyledAttributes(attrs, R.styleable.LoadingButton).apply {
+            val buttonText = getString(R.styleable.LoadingButton_lb_text).orEmpty()
+            binding.button.text = buttonText
 
-        var buttonText = typedArray.getString(R.styleable.LoadingButton_lb_text) ?: ""
-        binding.button.text = buttonText
-
-        typedArray.recycle()
+            recycle()
+        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

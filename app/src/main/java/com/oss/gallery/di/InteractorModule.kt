@@ -1,31 +1,21 @@
 package com.oss.gallery.di
 
-import com.oss.gallery.data.repository.MainRepositoryImpl
+import com.oss.gallery.ui.interactors.AuthInteractor
 import com.oss.gallery.ui.interactors.AuthInteractorImpl
+import com.oss.gallery.ui.interactors.MainInteractor
 import com.oss.gallery.ui.interactors.MainInteractorImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
-object InteractorModule {
+@InstallIn(ViewModelComponent::class)
+abstract class InteractorModule {
 
-    @Singleton
-    @Provides
-    fun provideAuthInteractor(
-        mainRepository: MainRepositoryImpl
-    ): AuthInteractorImpl = AuthInteractorImpl(mainRepository)
+    @Binds
+    abstract fun bindAuthInteractor(impl: AuthInteractorImpl): AuthInteractor
 
-    @Singleton
-    @Provides
-    fun provideMainInteractor(
-        mainRepository: MainRepositoryImpl
-    ): MainInteractorImpl = MainInteractorImpl(mainRepository)
-
-//    @Singleton
-//    @Provides
-//    fun provideBasePictureModelMapper(): BasePictureModelMapper = BasePictureModelMapper()
+    @Binds
+    abstract fun bindMainInteractor(impl: MainInteractorImpl): MainInteractor
 }

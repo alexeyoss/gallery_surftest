@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oss.gallery.data.network.request.NetworkAuthRequest
 import com.oss.gallery.di.IoDispatcher
-import com.oss.gallery.ui.interactors.AuthInteractorImpl
+import com.oss.gallery.ui.interactors.AuthInteractor
 import com.oss.gallery.ui.states.auth_activity_states.AuthUiEvents
 import com.oss.gallery.ui.states.auth_activity_states.AuthUiStates
 import com.oss.gallery.ui.states.auth_activity_states.ValidationState
@@ -26,7 +26,7 @@ import javax.inject.Inject
 class LoginViewModelImpl
 @Inject
 constructor(
-    private val interactor: AuthInteractorImpl,
+    private val interactor: AuthInteractor,
     private val loginValidator: LoginValidator,
     private val passwordValidator: PasswordValidator,
     @IoDispatcher
