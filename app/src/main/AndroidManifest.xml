@@ -24,8 +24,8 @@
             android:exported="true"
             android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Gallery"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/Theme.Gallery">
+            <!--            android:windowSoftInputMode="adjustResize"-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -66,7 +66,7 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
                 is AuthUiStates.Error<*> -> {
                     navigator().fragmentIsClickable(enable = true)
                     loginBtn.loading = false
-                    //TODO network error
+                    //TODO classify the Network Error or Login/Password Error
                 }
                 is AuthUiStates.Empty -> Unit
                 is AuthUiStates.Loading -> navigator().fragmentIsClickable(enable = false)
@@ -79,14 +79,14 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
                 is ValidationState.EmptyFiledError -> {
                     loginBtn.loading = false
                     loginInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message.toString()
+                        validationState.message
                     )
                 }
 
                 is ValidationState.IncorrectFiledError -> {
                     loginBtn.loading = false
                     loginInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message.toString()
+                        validationState.message
                     )
                     Toast.makeText(
                         context,
@@ -104,13 +104,13 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
                 is ValidationState.EmptyFiledError -> {
                     loginBtn.loading = false
                     passwordInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message.toString()
+                        validationState.message
                     )
                 }
                 is ValidationState.IncorrectFiledError -> {
                     loginBtn.loading = false
                     passwordInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message.toString()
+                        validationState.message
                     )
                     Toast.makeText(
                         context,
@@ -131,7 +131,7 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
 
     private fun refreshTextInputLayout(textInputLayout: TextInputLayout) {
         textInputLayout.apply {
-            error = ""
+            error = null
             boxStrokeColor = R.color.black
         }
     }

@@ -9,6 +9,7 @@ import javax.inject.Singleton
 @Singleton
 class PasswordValidator : BaseValidator<String>() {
 
+    //TODO need refactoring
     override suspend fun validate(data: String): Flow<ValidationState> = flow {
         if (data.isBlank())
             emit(

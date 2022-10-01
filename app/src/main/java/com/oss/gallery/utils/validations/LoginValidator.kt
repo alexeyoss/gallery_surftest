@@ -9,10 +9,11 @@ import javax.inject.Singleton
 @Singleton
 class LoginValidator : BaseValidator<String>() {
 
+    //TODO need refactoring
     override suspend fun validate(data: String): Flow<ValidationState> = flow {
-        if (data.isBlank())
+        if (data.isEmpty())
             emit(
-                ValidationState.EmptyFiledError(R.string.empty_field_error) // TODO add annotation @StringRes or maybe DataModel not hte raw text
+                ValidationState.EmptyFiledError(R.string.empty_field_error)
             )
         if (!regexp.matches(data))
             emit(

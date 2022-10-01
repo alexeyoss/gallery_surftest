@@ -24,10 +24,10 @@ fun AppCompatActivity.replaceFragment(
 
 @SuppressLint("ResourceAsColor")
 fun TextInputLayout.setErrorStateForTextInputLayout(
-    message: String
+    message: Int
 ) {
     apply {
-        error = message
+        error = resources.getText(message)
         boxStrokeColor = R.color.input_stroke_ErrorColor
         errorIconDrawable = null
     }
