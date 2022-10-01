@@ -14,15 +14,8 @@ constructor(
     private val mainRepository: MainRepositoryImpl
 ) : MainInteractor {
     override suspend fun logout(): Flow<MainUiStates> {
-        return flow {
-            emit(MainUiStates.Loading)
-            val result = when (val requestState = mainRepository.logout()) {
-                is NetworkRequestState.Success -> {
-                    MainUiStates.Success("")
-                }
-                else -> MainUiStates.Error(requestState as ErrorState)
-            }
-            emit(result)
+        return buildRequestFlow {
+            mainRepository.logout()
         }
     }
 
@@ -41,12 +34,12 @@ constructor(
     }
 
     override suspend fun getPictureFromTheNetwork(): Flow<MainUiStates> {
-        return buildTestFlow {
+        return buildRequestFlow {
             mainRepository.getPicturesFromNetwork()
         }
     }
 
-    private fun <NetworkResponse> buildTestFlow(
+    private fun <NetworkResponse> buildRequestFlow(
         block: suspend () -> NetworkRequestState<NetworkResponse>
     ): Flow<MainUiStates> {
         return flow {

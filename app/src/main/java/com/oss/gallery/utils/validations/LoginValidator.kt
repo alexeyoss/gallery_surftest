@@ -4,22 +4,19 @@ import com.oss.gallery.R
 import com.oss.gallery.ui.states.auth_activity_states.ValidationState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Singleton
 
-@Singleton
 class LoginValidator : BaseValidator<String>() {
 
-    //TODO need refactoring
     override suspend fun validate(data: String): Flow<ValidationState> = flow {
-        if (data.isEmpty())
+        if (data.replace("+7", "").isEmpty())
             emit(
                 ValidationState.EmptyFiledError(R.string.empty_field_error)
             )
-        if (!regexp.matches(data))
+        else if (!regexp.matches(data) || data.length < 12)
             emit(
                 ValidationState.IncorrectFiledError(R.string.incorrect_phone_format)
             )
-        if (data.isNotBlank() && regexp.matches(data))
+        else if (data.isNotEmpty() && regexp.matches(data))
             emit(ValidationState.Successful)
     }
 
