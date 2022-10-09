@@ -19,4 +19,5 @@
     <string name="reject_text">НЕТ</string>
     <string name="accept_text">ДА, ТОЧНО</string>
     <string name="exit_text">Вы точно хотите выйти из приложения?</string>
+    <string name="delete_post">Вы точно хотите удалить из избранного?</string>
 </resources>

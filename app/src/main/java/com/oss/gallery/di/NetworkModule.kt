@@ -2,9 +2,10 @@ package com.oss.gallery.di
 
 import android.util.Log
 import com.oss.gallery.BuildConfig
-import com.oss.gallery.data.network.ApiService
-import com.oss.gallery.data.network.interceptors.AuthInterceptorImpl
-import com.oss.gallery.data.storage.TokenStorage
+import com.oss.gallery.feature_authorization.data.network.AuthApiService
+import com.oss.gallery.feature_authorization.data.network.TokenInterceptorImpl
+import com.oss.gallery.feature_authorization.data.storage.TokenStorage
+import com.oss.gallery.feature_posts.data.network.MainApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,15 +30,15 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideAuthInterceptor(tokenStorage: TokenStorage): AuthInterceptorImpl {
-        return AuthInterceptorImpl(tokenStorage)
+    fun provideTokenInterceptor(tokenStorage: TokenStorage): TokenInterceptorImpl {
+        return TokenInterceptorImpl(tokenStorage)
     }
 
     @Singleton
     @Provides
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-        authInterceptor: AuthInterceptorImpl
+        authInterceptor: TokenInterceptorImpl
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addNetworkInterceptor(loggingInterceptor)
@@ -58,7 +59,13 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
+    fun provideAuthApiService(retrofit: Retrofit): AuthApiService {
+        return retrofit.create(AuthApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMainApiService(retrofit: Retrofit): MainApiService {
+        return retrofit.create(MainApiService::class.java)
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ErrorFragment">
+    tools:context=".feature_posts.presentation.ErrorFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:textSize="14dp" />
     </LinearLayout>
 
-    <com.oss.gallery.ui.custom_views.LoadingButton
+    <com.oss.gallery.feature_authorization.presentation.view.LoadingButton
         android:id="@+id/refresh_button"
         style="@style/loading_button"
         app:layout_constraintBottom_toBottomOf="parent"

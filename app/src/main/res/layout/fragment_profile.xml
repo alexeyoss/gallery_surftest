@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.profile_fragment.ProfileFragment">
+    tools:context=".feature_posts.presentation.profile_fragment.ProfileFragment">
 
     <ImageView
         android:id="@+id/profilePhoto"
@@ -43,7 +43,7 @@
         app:layout_constraintStart_toEndOf="@+id/profilePhoto"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.oss.gallery.ui.custom_views.LoadingButton
+    <com.oss.gallery.feature_authorization.presentation.view.LoadingButton
         android:id="@+id/logout_btn"
         style="@style/loading_button"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:lb_text="Выйти" />
 
-    <com.oss.gallery.ui.custom_views.UserDetailView
+    <com.oss.gallery.feature_posts.presentation.view.UserDetailView
         android:id="@+id/phone_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         app:udv_header="Телефон"
         app:udv_subTitle="+7 (937) 181-69-99" />
 
-    <com.oss.gallery.ui.custom_views.UserDetailView
+    <com.oss.gallery.feature_posts.presentation.view.UserDetailView
         android:id="@+id/email_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
         app:udv_header="Почта"
         app:udv_subTitle="defaul_nickname@mail.com" />
 
-    <com.oss.gallery.ui.custom_views.UserDetailView
+    <com.oss.gallery.feature_posts.presentation.view.UserDetailView
         android:id="@+id/city_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

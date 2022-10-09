@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:context=".ui.postdetails_fragment.PostDetailsFragment">
+    tools:context=".feature_posts.presentation.postdetails_fragment.PostDetailsFragment">
 
     <ImageView
         android:id="@+id/photo"

@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id 'com.android.application' version '7.2.0' apply false
-    id 'com.android.library' version '7.2.0' apply false
+    id 'com.android.application' version '7.2.2' apply false
+    id 'com.android.library' version '7.2.2' apply false
     id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
     id 'dagger.hilt.android.plugin' apply false
 }
@@ -11,9 +11,9 @@ ext {
     retrofit_version = "2.9.0"
     dagger_version = "2.41"
     glide_version = "4.13.0"
-    activityKtx = "1.5.1"
-    fragmentKtx = "1.5.2"
-    navigatio_version = "2.5.1"
+    activityKtx = "1.6.0"
+    fragmentKtx = "1.5.3"
+    navigatio_version = "2.5.2"
 }
 
 task clean(type: Delete) {
