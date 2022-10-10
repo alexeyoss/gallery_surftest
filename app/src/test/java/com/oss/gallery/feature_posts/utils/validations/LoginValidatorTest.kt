@@ -1,8 +1,8 @@
 package com.oss.gallery.feature_posts.utils.validations
 
 import com.oss.gallery.R
-import com.oss.gallery.feature_authorization.presentation.util.LoginValidator
 import com.oss.gallery.feature_authorization.presentation.states.ValidationState
+import com.oss.gallery.feature_authorization.presentation.util.LoginValidator
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

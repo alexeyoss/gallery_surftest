@@ -14,6 +14,7 @@ ext {
     activityKtx = "1.6.0"
     fragmentKtx = "1.5.3"
     navigatio_version = "2.5.2"
+    roomDB_version = "2.4.2"
 }
 
 task clean(type: Delete) {

@@ -22,6 +22,7 @@ android {
 
         buildConfigField "String", "API_URL", "\"https://pictures.chronicker.fun/api/\""
         buildConfigField "Long", "SPLASH_DELAY", 800 + "L"
+        buildConfigField "int", "DB_VERSION", "1"
     }
 
     buildTypes {
@@ -86,6 +87,10 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     // DataStore preference
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+    // Room DB
+    implementation "androidx.room:room-runtime:$roomDB_version"
+    kapt "androidx.room:room-compiler:$roomDB_version"
+    implementation "androidx.room:room-ktx:$roomDB_version"
 
 }
 kapt {
