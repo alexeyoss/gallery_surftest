@@ -8,16 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.oss.gallery.R
 import com.oss.gallery.databinding.ItemFavoritesFragmentBinding
-import com.oss.gallery.feature_posts.data.model.BasePictureModel
+import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
 import com.oss.gallery.feature_posts.utils.UniversalItemCallback
 
 class FavoritesFragmentAdapter(
     private val listener: FavoritesFragmentOnClickListener
-) : ListAdapter<BasePictureModel, FavoritesFragmentAdapter.FavoritesPosts>(UniversalItemCallback),
+) : ListAdapter<BasePictureCachedEntity, FavoritesFragmentAdapter.FavoritesPosts>(
+    UniversalItemCallback
+),
     View.OnClickListener {
 
     override fun onClick(v: View) {
-        val picture = v.tag as BasePictureModel
+        val picture = v.tag as BasePictureCachedEntity
         when (v.id) {
             R.id.like -> listener.onLikeClicked(picture)
             else -> Unit

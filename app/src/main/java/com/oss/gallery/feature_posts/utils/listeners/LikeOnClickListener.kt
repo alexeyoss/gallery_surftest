@@ -1,7 +1,7 @@
 package com.oss.gallery.feature_posts.utils.listeners
 
-import com.oss.gallery.feature_posts.data.model.BasePictureModel
+import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
 
 interface LikeOnClickListener {
-    fun onLikeClicked(basePictureModel: BasePictureModel)
+    fun onLikeClicked(basePictureModel: BasePictureCachedEntity)
 }

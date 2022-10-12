@@ -1,8 +1,10 @@
 package com.oss.gallery.di
 
 import com.oss.gallery.feature_posts.domain.repository.MainRepository
+import com.oss.gallery.feature_posts.domain.repository.PostsRepository
 import com.oss.gallery.feature_posts.domain.use_case.CleanStorageResourcesUseCase
 import com.oss.gallery.feature_posts.domain.use_case.GetPicturesFromNetworkAndMapToBaseModelUseCase
+import com.oss.gallery.feature_posts.domain.use_case.LikePostWithTimeStampUseCase
 import com.oss.gallery.feature_posts.domain.use_case.MainUseCases
 import com.oss.gallery.feature_posts.domain.use_case.UserLogoutUseCase
 import dagger.Module
@@ -35,15 +37,23 @@ object MainUseCases {
 
     @Singleton
     @Provides
+    fun provideLikePostWithTimeStampUseCase(repository: PostsRepository): LikePostWithTimeStampUseCase {
+        return LikePostWithTimeStampUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun provideMainUseCases(
         logoutUseCase: UserLogoutUseCase,
         cleanStorageResourcesUseCase: CleanStorageResourcesUseCase,
-        getPicturesFromNetworkAndMapToBaseModelUseCase: GetPicturesFromNetworkAndMapToBaseModelUseCase
+        getPicturesFromNetworkAndMapToBaseModelUseCase: GetPicturesFromNetworkAndMapToBaseModelUseCase,
+        likePostWithTimeStampUseCase: LikePostWithTimeStampUseCase
     ): MainUseCases {
         return MainUseCases(
             logoutUseCase,
             cleanStorageResourcesUseCase,
-            getPicturesFromNetworkAndMapToBaseModelUseCase
+            getPicturesFromNetworkAndMapToBaseModelUseCase,
+            likePostWithTimeStampUseCase
         )
     }
 }

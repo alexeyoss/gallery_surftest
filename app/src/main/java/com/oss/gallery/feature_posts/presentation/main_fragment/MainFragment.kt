@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.oss.gallery.R
 import com.oss.gallery.databinding.FragmentMainBinding
 import com.oss.gallery.feature_posts.contract.navigator
-import com.oss.gallery.feature_posts.data.model.BasePictureModel
+import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
 import com.oss.gallery.feature_posts.presentation.BaseMainFragments
 import com.oss.gallery.feature_posts.presentation.states.MainUiStates
 import com.oss.gallery.feature_posts.utils.collectOnLifecycle
@@ -57,7 +57,7 @@ class MainFragment : BaseMainFragments(R.layout.fragment_main),
             when (uiState) {
                 is MainUiStates.Loading -> Unit
                 is MainUiStates.Success<*> -> {
-                    mAdapter.submitList(uiState.data as List<BasePictureModel>)
+                    mAdapter.submitList(uiState.data as List<BasePictureCachedEntity>)
                 }
                 is MainUiStates.Empty -> Unit
                 is MainUiStates.Error<*> -> Unit
@@ -70,11 +70,11 @@ class MainFragment : BaseMainFragments(R.layout.fragment_main),
         }
     }
 
-    override fun onPostClicked(data: BasePictureModel) {
+    override fun onPostClicked(data: BasePictureCachedEntity) {
         navigator().changeActivity(this)
     }
 
-    override fun onLikeClicked(basePictureModel: BasePictureModel) {
-//        viewModel.
+    override fun onLikeClicked(basePictureModel: BasePictureCachedEntity) {
+
     }
 }

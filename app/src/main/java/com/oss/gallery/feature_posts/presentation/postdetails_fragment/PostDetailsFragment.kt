@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.oss.gallery.R
 import com.oss.gallery.databinding.FragmentPostDetailsBinding
-import com.oss.gallery.feature_posts.data.model.BasePictureModel
+import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
 import com.oss.gallery.feature_posts.presentation.BaseMainFragments
 import com.oss.gallery.feature_posts.utils.argumentNullable
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +17,7 @@ class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
 
     private lateinit var binding: FragmentPostDetailsBinding
 
-    private var _state by argumentNullable<BasePictureModel>()
+    private var _state by argumentNullable<BasePictureCachedEntity>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,17 +26,17 @@ class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
         binding = FragmentPostDetailsBinding.inflate(inflater, container, false)
 
         savedInstanceState?.get(ARG_KEY)?.let {
-            initViews(it as BasePictureModel)
+            initViews(it as BasePictureCachedEntity)
         }
 
-        arguments?.getParcelable<BasePictureModel>(ARG_KEY)?.let {
+        arguments?.getParcelable<BasePictureCachedEntity>(ARG_KEY)?.let {
             initViews(it)
         }
 
         return binding.root
     }
 
-    private fun initViews(source: BasePictureModel) = with(binding) {
+    private fun initViews(source: BasePictureCachedEntity) = with(binding) {
         _state = source
 
         Glide.with(root)
@@ -60,7 +60,7 @@ class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
         private val ARG_KEY: String = PostDetailsFragment::class.java.name
 
         @JvmStatic
-        fun newInstance(postDetails: BasePictureModel): PostDetailsFragment =
+        fun newInstance(postDetails: BasePictureCachedEntity): PostDetailsFragment =
             PostDetailsFragment().apply {
                 this._state = postDetails
             }

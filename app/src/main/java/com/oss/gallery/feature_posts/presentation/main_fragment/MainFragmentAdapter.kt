@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.oss.gallery.R
 import com.oss.gallery.databinding.ItemMainFragmentBinding
-import com.oss.gallery.feature_posts.data.model.BasePictureModel
+import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
 import com.oss.gallery.feature_posts.utils.UniversalItemCallback
 
 class MainFragmentAdapter(
     private val listener: MainFragmentRvOnClickListener
-) : ListAdapter<BasePictureModel, MainFragmentAdapter.PictureHolder>(UniversalItemCallback),
+) : ListAdapter<BasePictureCachedEntity, MainFragmentAdapter.PictureHolder>(UniversalItemCallback),
     View.OnClickListener {
 
     override fun onClick(v: View) {
-        val picture = v.tag as BasePictureModel
+        val picture = v.tag as BasePictureCachedEntity
         when (v.id) {
             R.id.like -> listener.onLikeClicked(picture)
             else -> listener.onPostClicked(picture)

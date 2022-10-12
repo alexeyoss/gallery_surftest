@@ -1,7 +1,7 @@
 package com.oss.gallery.feature_posts.data.repository
 
 import com.oss.gallery.feature_authorization.data.storage.TokenStorage
-import com.oss.gallery.feature_posts.data.model.BasePictureModel
+import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
 import com.oss.gallery.feature_posts.data.network.MainApiService
 import com.oss.gallery.feature_posts.data.network.request.NetworkRequestState
 import com.oss.gallery.feature_posts.domain.repository.MainRepository
@@ -24,7 +24,7 @@ constructor(
         }
     }
 
-    override suspend fun getPicturesFromNetworkAndMapToBaseModel(): NetworkRequestState<List<BasePictureModel>> {
+    override suspend fun getPicturesFromNetworkAndMapToBasePictureCachedModel(): NetworkRequestState<List<BasePictureCachedEntity>> {
         return safeApiCall {
             basePictureModel.mapEntityList(mainApiService.getPictures())
         }

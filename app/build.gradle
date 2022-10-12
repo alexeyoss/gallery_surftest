@@ -9,7 +9,6 @@ plugins {
 android {
     compileSdk 33
     viewBinding.enabled = true
-    dataBinding.enabled = true
 
     defaultConfig {
         applicationId "com.oss.gallery"
@@ -23,6 +22,7 @@ android {
         buildConfigField "String", "API_URL", "\"https://pictures.chronicker.fun/api/\""
         buildConfigField "Long", "SPLASH_DELAY", 800 + "L"
         buildConfigField "int", "DB_VERSION", "1"
+        buildConfigField "String", "DB_NAME", "\"POSTS_DB\""
     }
 
     buildTypes {

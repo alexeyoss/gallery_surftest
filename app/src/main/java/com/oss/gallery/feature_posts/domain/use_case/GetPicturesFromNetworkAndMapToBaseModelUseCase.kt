@@ -13,7 +13,7 @@ constructor(
 ) {
     suspend operator fun invoke(): Flow<MainUiStates> {
         return buildMainRequestFlow {
-            repository.getPicturesFromNetworkAndMapToBaseModel()
+            repository.getPicturesFromNetworkAndMapToBasePictureCachedModel()
         }
     }
 }

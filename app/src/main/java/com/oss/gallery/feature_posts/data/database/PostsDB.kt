@@ -10,7 +10,7 @@ import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEnt
     version = BuildConfig.DB_VERSION,
     exportSchema = false
 )
-abstract class MainDataBase : RoomDatabase() {
+abstract class PostsDB : RoomDatabase() {
 
     abstract fun postsDao(): PostsDao
 }

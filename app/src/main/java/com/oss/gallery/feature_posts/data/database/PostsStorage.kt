@@ -1,19 +1,36 @@
 package com.oss.gallery.feature_posts.data.database
 
-import android.content.Context
-import androidx.room.Room
+import com.oss.gallery.di.IoDispatcher
 import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class PostsStorage(context: Context) {
-    private val database = Room.databaseBuilder(
-        context, MainDataBase::class.java, "cached_posts"
-    ).build()
-
-    private val dao = database.postsDao()
-
-    suspend fun getAll(): List<BasePictureCachedEntity> = withContext(Dispatchers.IO) {
+class PostsStorage
+@Inject
+constructor(
+    private val dao: PostsDao,
+    @IoDispatcher
+    private val ioDispatcher: CoroutineDispatcher
+) {
+    suspend fun getAll(): List<BasePictureCachedEntity> = withContext(ioDispatcher) {
         dao.getAll()
+    }
+
+    suspend fun getAllLikedPosts(): List<BasePictureCachedEntity> = withContext(ioDispatcher) {
+        dao.getAllLikePosts()
+    }
+
+    suspend fun saveAllUniqueData(posts: List<BasePictureCachedEntity>) =
+        withContext(ioDispatcher) {
+            dao.saveAllUniqueData(posts)
+        }
+
+    suspend fun likePostWithTimeStamp(post: BasePictureCachedEntity) = withContext(ioDispatcher) {
+        dao.likePostWithTimeStamp(post)
+    }
+
+    suspend fun unlikePostWithTimeStamp(post: BasePictureCachedEntity) = withContext(ioDispatcher) {
+        dao.unlikePostWithTimeStamp(post)
     }
 }

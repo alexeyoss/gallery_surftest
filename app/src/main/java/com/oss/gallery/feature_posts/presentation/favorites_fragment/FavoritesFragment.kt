@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.oss.gallery.R
 import com.oss.gallery.databinding.FragmentFavoritesBinding
 import com.oss.gallery.feature_posts.contract.ToolbarHandler
-import com.oss.gallery.feature_posts.data.model.BasePictureModel
+import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
 import com.oss.gallery.feature_posts.presentation.BaseMainFragments
 import com.oss.gallery.feature_posts.utils.AlertDialogBuilder
 
@@ -62,7 +62,7 @@ class FavoritesFragment : BaseMainFragments(R.layout.fragment_favorites),
         }
     }
 
-    override fun onLikeClicked(basePictureModel: BasePictureModel) {
+    override fun onLikeClicked(basePictureModel: BasePictureCachedEntity) {
         alertDialog.show()
     }
 
