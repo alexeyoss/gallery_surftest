@@ -74,7 +74,7 @@ class MainFragment : BaseMainFragments(R.layout.fragment_main),
         navigator().changeActivity(this)
     }
 
-    override fun onLikeClicked(basePictureModel: BasePictureCachedEntity) {
-
+    override fun onLikeClicked(post: BasePictureCachedEntity) {
+        viewModel.onLikeClicked(post)
     }
 }

@@ -2,7 +2,7 @@ package com.oss.gallery.feature_posts.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy.ABORT
+import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
@@ -11,12 +11,12 @@ import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEnt
 abstract class PostsDao {
 
     @Query("SELECT * FROM cached_posts")
-    abstract fun getAll(): List<BasePictureCachedEntity>
+    abstract fun getAllCachedPosts(): List<BasePictureCachedEntity>
 
     @Query("SELECT * FROM cached_posts WHERE liked = 1 ORDER BY liked_at ASC ")
     abstract fun getAllLikePosts(): List<BasePictureCachedEntity>
 
-    @Insert(onConflict = ABORT)
+    @Insert(onConflict = IGNORE)
     abstract fun saveAllUniqueData(posts: List<BasePictureCachedEntity>)
 
     @Insert(onConflict = REPLACE)

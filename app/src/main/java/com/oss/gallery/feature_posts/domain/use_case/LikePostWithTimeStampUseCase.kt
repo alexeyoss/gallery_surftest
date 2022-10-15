@@ -10,6 +10,7 @@ constructor(
     private val repository: PostsRepository
 ) {
     suspend operator fun invoke(post: BasePictureCachedEntity) {
-        repository.likePostWithTimeStamp(post)
+        if (post.liked) repository.unlikePostWithTimeStamp(post)
+        else repository.likePostWithTimeStamp(post)
     }
 }

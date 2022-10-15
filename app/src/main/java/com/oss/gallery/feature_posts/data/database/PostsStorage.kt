@@ -13,18 +13,24 @@ constructor(
     @IoDispatcher
     private val ioDispatcher: CoroutineDispatcher
 ) {
-    suspend fun getAll(): List<BasePictureCachedEntity> = withContext(ioDispatcher) {
-        dao.getAll()
+    suspend fun getAllCachedPosts(): List<BasePictureCachedEntity> = withContext(ioDispatcher) {
+        dao.getAllCachedPosts()
     }
 
     suspend fun getAllLikedPosts(): List<BasePictureCachedEntity> = withContext(ioDispatcher) {
         dao.getAllLikePosts()
     }
 
-    suspend fun saveAllUniqueData(posts: List<BasePictureCachedEntity>) =
-        withContext(ioDispatcher) {
-            dao.saveAllUniqueData(posts)
+    suspend fun saveAllUniqueData(posts: List<BasePictureCachedEntity>): Boolean {
+        return withContext(ioDispatcher) {
+            runCatching {
+                dao.saveAllUniqueData(posts)
+                return@runCatching true
+            }.getOrElse {
+                return@getOrElse false
+            }
         }
+    }
 
     suspend fun likePostWithTimeStamp(post: BasePictureCachedEntity) = withContext(ioDispatcher) {
         dao.likePostWithTimeStamp(post)

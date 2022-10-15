@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,28 +30,45 @@ constructor(
         MutableStateFlow<MainUiStates>(MainUiStates.Success(emptyList<BasePictureCachedEntity>()))
     override val picturesUiStateFlow = _picturesUiStateFlow.asStateFlow()
 
-    private val _picturesUiEventFlow = MutableStateFlow<MainUiEvents>(MainUiEvents.GetPictures)
+    private val _picturesUiEventFlow =
+        MutableStateFlow<MainUiEvents>(MainUiEvents.GetCachedPostsFromDB)
     override val picturesUiEventFlow = _picturesUiEventFlow.asStateFlow()
 
     init {
-        getPicturesFromNetworkAndMapToBaseModel()
+        getCachedPicturesFromDbWithNetworkCallUseCase()
     }
 
-    override fun getPicturesFromNetworkAndMapToBaseModel() {
+    override fun getCachedPicturesFromDbWithNetworkCallUseCase() {
         viewModelScope.launch(ioDispatcher) {
-            mainUseCases.GetPicturesFromNetworkAndMapToBaseModelUseCase()
+            mainUseCases.getCachedPicturesFromDbWithNetworkCallUseCase()
                 .onEach {
                     _picturesUiStateFlow.emit(it)
-                    _picturesUiEventFlow.emit(MainUiEvents.GetPictures) // TODO  is it correct
+                    _picturesUiEventFlow.emit(MainUiEvents.GetCachedPostsFromDB)
                 }
                 .launchIn(viewModelScope)
         }
     }
 
-    override fun likePostWithTimeStamp(post: BasePictureCachedEntity) {
+    override fun onLikeClicked(post: BasePictureCachedEntity) {
         viewModelScope.launch(ioDispatcher) {
-            mainUseCases.likePostWithTimeStamp(post)
+            val likeJob = async {
+                mainUseCases.onLikeClicked(post)
+
+            }
+            likeJob.await().run {
+                getAllCachedPosts()
+            }
         }
-        // TODO GetAll From DB
+    }
+
+    // TODO incorrect method into PostStorage
+    override fun getAllCachedPosts() {
+        viewModelScope.launch(ioDispatcher) {
+            mainUseCases.getAllCachedPosts()
+                .onEach {
+                    _picturesUiStateFlow.emit(it)
+                    _picturesUiEventFlow.emit(MainUiEvents.GetCachedPosts)
+                }.launchIn(viewModelScope)
+        }
     }
 }

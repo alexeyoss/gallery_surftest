@@ -1,7 +1,8 @@
 package com.oss.gallery.feature_posts.presentation.states
 
 sealed interface MainUiEvents {
-    object GetPictures : MainUiEvents
+    object GetCachedPostsFromDB : MainUiEvents
+    object GetCachedPosts : MainUiEvents
     object Logout : MainUiEvents
     object GetFavoritesPosts : MainUiEvents
 }

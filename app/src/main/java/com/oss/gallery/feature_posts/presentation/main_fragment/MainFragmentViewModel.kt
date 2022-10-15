@@ -9,6 +9,7 @@ interface MainFragmentViewModel {
     val picturesUiStateFlow: StateFlow<MainUiStates>
     val picturesUiEventFlow: StateFlow<MainUiEvents>
 
-    fun getPicturesFromNetworkAndMapToBaseModel()
-    fun likePostWithTimeStamp(post: BasePictureCachedEntity)
+    fun getCachedPicturesFromDbWithNetworkCallUseCase()
+    fun onLikeClicked(post: BasePictureCachedEntity)
+    fun getAllCachedPosts()
 }

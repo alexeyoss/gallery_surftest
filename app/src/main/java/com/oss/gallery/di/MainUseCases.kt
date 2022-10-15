@@ -3,7 +3,8 @@ package com.oss.gallery.di
 import com.oss.gallery.feature_posts.domain.repository.MainRepository
 import com.oss.gallery.feature_posts.domain.repository.PostsRepository
 import com.oss.gallery.feature_posts.domain.use_case.CleanStorageResourcesUseCase
-import com.oss.gallery.feature_posts.domain.use_case.GetPicturesFromNetworkAndMapToBaseModelUseCase
+import com.oss.gallery.feature_posts.domain.use_case.GetAllCachedPostsUseCase
+import com.oss.gallery.feature_posts.domain.use_case.GetCachedPicturesFromDbWithNetworkCallUseCase
 import com.oss.gallery.feature_posts.domain.use_case.LikePostWithTimeStampUseCase
 import com.oss.gallery.feature_posts.domain.use_case.MainUseCases
 import com.oss.gallery.feature_posts.domain.use_case.UserLogoutUseCase
@@ -25,8 +26,14 @@ object MainUseCases {
 
     @Singleton
     @Provides
-    fun provideGetPicturesFromNetworkAndMapToBaseModelUseCase(repository: MainRepository): GetPicturesFromNetworkAndMapToBaseModelUseCase {
-        return GetPicturesFromNetworkAndMapToBaseModelUseCase(repository)
+    fun provideGetPicturesFromNetworkAndMapToBaseModelUseCase(
+        mainRepository: MainRepository,
+        postsRepository: PostsRepository
+    ): GetCachedPicturesFromDbWithNetworkCallUseCase {
+        return GetCachedPicturesFromDbWithNetworkCallUseCase(
+            mainRepository,
+            postsRepository
+        )
     }
 
     @Singleton
@@ -43,17 +50,25 @@ object MainUseCases {
 
     @Singleton
     @Provides
+    fun provideGetAllCachedPostsUseCase(repository: PostsRepository): GetAllCachedPostsUseCase {
+        return GetAllCachedPostsUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun provideMainUseCases(
         logoutUseCase: UserLogoutUseCase,
         cleanStorageResourcesUseCase: CleanStorageResourcesUseCase,
-        getPicturesFromNetworkAndMapToBaseModelUseCase: GetPicturesFromNetworkAndMapToBaseModelUseCase,
-        likePostWithTimeStampUseCase: LikePostWithTimeStampUseCase
+        getPicturesFromNetworkAndMapToBaseModelUseCase: GetCachedPicturesFromDbWithNetworkCallUseCase,
+        likePostWithTimeStampUseCase: LikePostWithTimeStampUseCase,
+        getAllCachedPosts: GetAllCachedPostsUseCase
     ): MainUseCases {
         return MainUseCases(
             logoutUseCase,
             cleanStorageResourcesUseCase,
             getPicturesFromNetworkAndMapToBaseModelUseCase,
-            likePostWithTimeStampUseCase
+            likePostWithTimeStampUseCase,
+            getAllCachedPosts
         )
     }
 }

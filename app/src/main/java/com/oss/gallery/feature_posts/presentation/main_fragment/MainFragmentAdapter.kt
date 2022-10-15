@@ -17,10 +17,10 @@ class MainFragmentAdapter(
     View.OnClickListener {
 
     override fun onClick(v: View) {
-        val picture = v.tag as BasePictureCachedEntity
+        val post = v.tag as BasePictureCachedEntity
         when (v.id) {
-            R.id.like -> listener.onLikeClicked(picture)
-            else -> listener.onPostClicked(picture)
+            R.id.like -> listener.onLikeClicked(post)
+            else -> listener.onPostClicked(post)
         }
     }
 

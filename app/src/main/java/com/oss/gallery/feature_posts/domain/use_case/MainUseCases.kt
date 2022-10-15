@@ -7,6 +7,7 @@ data class MainUseCases
 constructor(
     val logout: UserLogoutUseCase,
     val cleanStorageResources: CleanStorageResourcesUseCase,
-    val GetPicturesFromNetworkAndMapToBaseModelUseCase: GetPicturesFromNetworkAndMapToBaseModelUseCase,
-    val likePostWithTimeStamp : LikePostWithTimeStampUseCase
+    val getCachedPicturesFromDbWithNetworkCallUseCase: GetCachedPicturesFromDbWithNetworkCallUseCase,
+    val onLikeClicked: LikePostWithTimeStampUseCase,
+    val getAllCachedPosts: GetAllCachedPostsUseCase
 )

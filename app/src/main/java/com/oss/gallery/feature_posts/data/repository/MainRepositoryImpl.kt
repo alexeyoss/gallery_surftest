@@ -24,7 +24,8 @@ constructor(
         }
     }
 
-    override suspend fun getPicturesFromNetworkAndMapToBasePictureCachedModel(): NetworkRequestState<List<BasePictureCachedEntity>> {
+    override suspend fun getPicturesFromNetworkAndMapToBasePictureCachedModel()
+        : NetworkRequestState<List<BasePictureCachedEntity>> {
         return safeApiCall {
             basePictureModel.mapEntityList(mainApiService.getPictures())
         }
