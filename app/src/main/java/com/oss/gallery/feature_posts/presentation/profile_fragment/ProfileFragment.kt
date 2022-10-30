@@ -28,14 +28,16 @@ class ProfileFragment : BaseMainFragments(R.layout.fragment_profile) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-
-        initListeners()
-        initViews()
-
         return binding.root
     }
 
-    fun initListeners() = with(binding) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initListeners()
+        initViews()
+
+    }
+
+    private fun initListeners() = with(binding) {
         logoutBtn.setOnClickListener {
             alertDialog.show()
         }

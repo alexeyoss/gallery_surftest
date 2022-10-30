@@ -14,6 +14,7 @@ import com.oss.gallery.databinding.ActivityAuthBinding
 import com.oss.gallery.feature_authorization.presentation.login_fragment.LoginFragment
 import com.oss.gallery.feature_authorization.presentation.states.AuthUiStates
 import com.oss.gallery.feature_posts.contract.AuthNavigator
+import com.oss.gallery.feature_posts.presentation.ErrorFragment
 import com.oss.gallery.feature_posts.presentation.MainActivity
 import com.oss.gallery.feature_posts.utils.collectOnLifecycle
 import com.oss.gallery.feature_posts.utils.replaceFragment
@@ -22,7 +23,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AuthActivity : AppCompatActivity(), AuthNavigator {
 
-    private val binding by lazy { ActivityAuthBinding.inflate(layoutInflater) }
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        ActivityAuthBinding.inflate(
+            layoutInflater
+        )
+    }
     private val viewModel by viewModels<AuthViewModelImpl>()
     private var keepSplashOnScreen = true
 
@@ -67,15 +72,8 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
                 is AuthUiStates.Success<*> -> changeActivity(null)
                 is AuthUiStates.Empty -> Unit
                 is AuthUiStates.Loading -> Unit
-                is AuthUiStates.Error<*> -> replaceFragment(LoginFragment(), addStack = false)
+                is AuthUiStates.Error<*> -> replaceFragment(ErrorFragment(), addStack = false)
             }
-        }
-    }
-
-    override fun fragmentIsClickable(enable: Boolean) = with(binding) {
-        when (currentFragment) {
-            // TODO not working
-            is LoginFragment -> fragmentContainer.isClickable = enable
         }
     }
 

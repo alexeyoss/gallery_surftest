@@ -3,8 +3,10 @@ package com.oss.gallery.di
 import com.oss.gallery.feature_posts.domain.repository.MainRepository
 import com.oss.gallery.feature_posts.domain.repository.PostsRepository
 import com.oss.gallery.feature_posts.domain.use_case.CleanStorageResourcesUseCase
+import com.oss.gallery.feature_posts.domain.use_case.DeleteLikedPostUseCase
 import com.oss.gallery.feature_posts.domain.use_case.GetAllCachedPostsUseCase
 import com.oss.gallery.feature_posts.domain.use_case.GetCachedPicturesFromDbWithNetworkCallUseCase
+import com.oss.gallery.feature_posts.domain.use_case.GetFavoritesPostsUseCase
 import com.oss.gallery.feature_posts.domain.use_case.LikePostWithTimeStampUseCase
 import com.oss.gallery.feature_posts.domain.use_case.MainUseCases
 import com.oss.gallery.feature_posts.domain.use_case.UserLogoutUseCase
@@ -44,8 +46,14 @@ object MainUseCases {
 
     @Singleton
     @Provides
-    fun provideLikePostWithTimeStampUseCase(repository: PostsRepository): LikePostWithTimeStampUseCase {
-        return LikePostWithTimeStampUseCase(repository)
+    fun provideLikePostWithTimeStampUseCase(
+        postsRepository: PostsRepository,
+        getAllCachedPosts: GetAllCachedPostsUseCase
+    ): LikePostWithTimeStampUseCase {
+        return LikePostWithTimeStampUseCase(
+            postsRepository,
+            getAllCachedPosts
+        )
     }
 
     @Singleton
@@ -56,19 +64,41 @@ object MainUseCases {
 
     @Singleton
     @Provides
+    fun provideGetFavoritesPostsUseCase(repository: PostsRepository): GetFavoritesPostsUseCase {
+        return GetFavoritesPostsUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteLikedPostUseCase(
+        repository: PostsRepository,
+        getFavoritesPosts: GetFavoritesPostsUseCase
+    ): DeleteLikedPostUseCase {
+        return DeleteLikedPostUseCase(
+            repository,
+            getFavoritesPosts
+        )
+    }
+
+    @Singleton
+    @Provides
     fun provideMainUseCases(
         logoutUseCase: UserLogoutUseCase,
         cleanStorageResourcesUseCase: CleanStorageResourcesUseCase,
         getPicturesFromNetworkAndMapToBaseModelUseCase: GetCachedPicturesFromDbWithNetworkCallUseCase,
         likePostWithTimeStampUseCase: LikePostWithTimeStampUseCase,
-        getAllCachedPosts: GetAllCachedPostsUseCase
+        getAllCachedPosts: GetAllCachedPostsUseCase,
+        getFavoritesPosts: GetFavoritesPostsUseCase,
+        deleteLikedPostUseCase: DeleteLikedPostUseCase
     ): MainUseCases {
         return MainUseCases(
             logoutUseCase,
             cleanStorageResourcesUseCase,
             getPicturesFromNetworkAndMapToBaseModelUseCase,
             likePostWithTimeStampUseCase,
-            getAllCachedPosts
+            getAllCachedPosts,
+            getFavoritesPosts,
+            deleteLikedPostUseCase,
         )
     }
 }

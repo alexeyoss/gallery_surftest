@@ -2,7 +2,7 @@ package com.oss.gallery.feature_authorization.presentation.login_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.oss.gallery.di.IoDispatcher
+import com.oss.gallery.di.CoroutinesModule
 import com.oss.gallery.feature_authorization.data.network.request.NetworkAuthRequest
 import com.oss.gallery.feature_authorization.domain.use_case.AuthUseCases
 import com.oss.gallery.feature_authorization.presentation.states.AuthUiEvents
@@ -29,7 +29,7 @@ constructor(
     private val authUseCases: AuthUseCases,
     private val loginValidator: LoginValidator,
     private val passwordValidator: PasswordValidator,
-    @IoDispatcher
+    @CoroutinesModule.IoDispatcher
     private val ioDispatcher: CoroutineDispatcher,
 //    @Assisted private val savedState: SavedStateHandle // TODO implement
 ) : ViewModel(), LoginViewModel {
@@ -77,6 +77,8 @@ constructor(
             }.collect {
                 if (it.first is ValidationState.Successful && it.second is ValidationState.Successful) {
                     _commonValidationFlow.emit(true)
+                } else {
+                    _commonValidationFlow.emit(false)
                 }
             }
         }

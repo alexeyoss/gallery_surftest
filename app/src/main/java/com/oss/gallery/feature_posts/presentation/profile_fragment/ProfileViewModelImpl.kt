@@ -2,7 +2,7 @@ package com.oss.gallery.feature_posts.presentation.profile_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.oss.gallery.di.IoDispatcher
+import com.oss.gallery.di.CoroutinesModule
 import com.oss.gallery.feature_posts.domain.use_case.MainUseCases
 import com.oss.gallery.feature_posts.presentation.states.MainUiStates
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class ProfileViewModelImpl
 @Inject
 constructor(
-    @IoDispatcher
+    @CoroutinesModule.IoDispatcher
     private val ioDispatcher: CoroutineDispatcher,
     private val mainUseCases: MainUseCases
 ) : ViewModel(), ProfileViewModel {

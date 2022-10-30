@@ -10,7 +10,7 @@ import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEnt
 @Dao
 abstract class PostsDao {
 
-    @Query("SELECT * FROM cached_posts")
+    @Query("SELECT * FROM cached_posts ORDER BY id ASC") // TODO debug
     abstract fun getAllCachedPosts(): List<BasePictureCachedEntity>
 
     @Query("SELECT * FROM cached_posts WHERE liked = 1 ORDER BY liked_at ASC ")

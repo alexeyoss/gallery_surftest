@@ -26,122 +26,130 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
 
-    private lateinit var binding: FragmentLoginBinding
+    private var binding: FragmentLoginBinding? = null
     private val viewModel: LoginViewModelImpl by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
-
-        initListeners()
-        initViews()
-
+        val binding = FragmentLoginBinding.inflate(inflater, container, false)
+        this.binding = binding
         return binding.root
     }
 
-    private fun initListeners() = with(binding) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initListeners()
+        initViews()
+    }
+
+    private fun initListeners() {
         // TODO loginEditText using Regex mask
+        val binding = checkNotNull(binding)
 
-        loginBtn.setOnClickListener {
-            viewModel.validateLoginForm(getNetworkAuthRequestModel())
-        }
-
-        loginInputEt.textChanges()
-            .debounce(200)
-            .onEach { refreshTextInputLayout(loginInputLayout) }
-            .launchIn(lifecycleScope)
-
-        passwordInputEt.textChanges()
-            .debounce(200)
-            .onEach { refreshTextInputLayout(passwordInputLayout) }
-            .launchIn(lifecycleScope)
-
-        viewModel.authUiStateFlow.collectOnLifecycle(this@LoginFragment) { uiState ->
-            when (uiState) {
-                is AuthUiStates.Success<*> -> {
-                    navigator().changeActivity(null)
-                }
-                is AuthUiStates.Error<*> -> {
-                    navigator().fragmentIsClickable(enable = true)
-                    loginBtn.loading = false
-                    //TODO classify the Network Error or Login/Password Error
-                }
-                is AuthUiStates.Empty -> Unit
-                is AuthUiStates.Loading -> navigator().fragmentIsClickable(enable = false)
+        with(binding) {
+            loginBtn.setOnClickListener {
+                viewModel.validateLoginForm(getNetworkAuthRequestModel())
+                freezeUiEntries(enabled = false)
             }
-        }
 
-        viewModel.loginValidationFlow.collectOnLifecycle(this@LoginFragment) { validationState ->
-            when (validationState) {
-                is ValidationState.Initial -> Unit
-                is ValidationState.EmptyFiledError -> {
-                    loginBtn.loading = false
-                    loginInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message
-                    )
+            loginInputEt.textChanges()
+                .debounce(200)
+                .onEach { refreshTextInputLayout(loginInputLayout) }
+                .launchIn(lifecycleScope)
+
+            passwordInputEt.textChanges()
+                .debounce(200)
+                .onEach { refreshTextInputLayout(passwordInputLayout) }
+                .launchIn(lifecycleScope)
+
+            viewModel.authUiStateFlow.collectOnLifecycle(this@LoginFragment) { uiState ->
+                when (uiState) {
+                    is AuthUiStates.Success<*> -> {
+                        freezeUiEntries(true)
+                        navigator().changeActivity(null)
+                    }
+                    is AuthUiStates.Error<*> -> {
+                        freezeUiEntries(true)
+                        loginBtn.loading = false
+                        //TODO classify the Network Error or Login/Password Error
+                    }
+                    is AuthUiStates.Empty -> Unit
+                    is AuthUiStates.Loading -> loginBtn.loading = true
                 }
 
-                is ValidationState.IncorrectFiledError -> {
-                    loginBtn.loading = false
-                    loginInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message
-                    )
-                    Toast.makeText(
-                        context,
-                        validationState.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } // TODO replace by CustomSnackBar
-                is ValidationState.Successful -> Unit
             }
-        }
 
-        viewModel.passwordValidationFlow.collectOnLifecycle(this@LoginFragment) { validationState ->
-            when (validationState) {
-                is ValidationState.Initial -> Unit
-                is ValidationState.EmptyFiledError -> {
-                    loginBtn.loading = false
-                    passwordInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message
-                    )
+            viewModel.loginValidationFlow.collectOnLifecycle(this@LoginFragment) { validationState ->
+                when (validationState) {
+                    is ValidationState.Initial -> Unit
+                    is ValidationState.EmptyFiledError -> {
+                        loginInputLayout.setErrorStateForTextInputLayout(
+                            validationState.message
+                        )
+                    }
+                    is ValidationState.IncorrectFiledError -> {
+                        loginInputLayout.setErrorStateForTextInputLayout(
+                            validationState.message
+                        )
+                        Toast.makeText(
+                            context,
+                            validationState.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } // TODO replace by CustomSnackBar
+                    is ValidationState.Successful -> Unit
                 }
-                is ValidationState.IncorrectFiledError -> {
-                    loginBtn.loading = false
-                    passwordInputLayout.setErrorStateForTextInputLayout(
-                        validationState.message
-                    )
-                    Toast.makeText(
-                        context,
-                        validationState.message,
-                        Toast.LENGTH_SHORT
-                    ).show() // TODO replace by CustomSnackBar
-                }
-                is ValidationState.Successful -> Unit
             }
-        }
 
-        viewModel.commonValidationFlow.collectOnLifecycle(this@LoginFragment) {
-            if (it) viewModel.login(getNetworkAuthRequestModel())
-            navigator().fragmentIsClickable(enable = false)
+            viewModel.passwordValidationFlow.collectOnLifecycle(this@LoginFragment) { validationState ->
+                when (validationState) {
+                    is ValidationState.Initial -> Unit
+                    is ValidationState.EmptyFiledError -> {
+                        passwordInputLayout.setErrorStateForTextInputLayout(
+                            validationState.message
+                        )
+                    }
+                    is ValidationState.IncorrectFiledError -> {
+                        passwordInputLayout.setErrorStateForTextInputLayout(
+                            validationState.message
+                        )
+                        Toast.makeText(
+                            context,
+                            validationState.message,
+                            Toast.LENGTH_SHORT
+                        ).show() // TODO replace by CustomSnackBar
+                    }
+                    is ValidationState.Successful -> Unit
+                }
+            }
 
+            viewModel.commonValidationFlow.collectOnLifecycle(this@LoginFragment) { validationState ->
+                freezeUiEntries(enabled = true)
+                loginBtn.loading = false
+
+                if (validationState) viewModel.login(getNetworkAuthRequestModel())
+            }
         }
     }
 
     private fun refreshTextInputLayout(textInputLayout: TextInputLayout) {
         textInputLayout.apply {
             error = null
-            boxStrokeColor = R.color.black
+            boxStrokeColor = resources.getColor(R.color.black)
         }
     }
 
-    private fun initViews() = with(binding) {
-        loginInputLayout.isHelperTextEnabled = false
-        passwordInputLayout.isHelperTextEnabled = false
+    private fun initViews() {
+        val binding = checkNotNull(binding)
+        with(binding) {
+            loginInputLayout.isHelperTextEnabled = false
+            passwordInputLayout.isHelperTextEnabled = false
+        }
     }
 
     private fun getNetworkAuthRequestModel(): NetworkAuthRequest {
+        val binding = checkNotNull(binding)
         return NetworkAuthRequest(
             with(binding) {
                 loginInputLayout.prefixText.toString() + loginInputEt.text.toString()
@@ -151,8 +159,19 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
         )
     }
 
-    override fun onDestroy() = with(binding) {
-        super.onDestroy()
-        loginBtn.setOnClickListener(null)
+    private fun freezeUiEntries(enabled: Boolean) {
+        val binding = checkNotNull(binding)
+        with(binding) {
+            loginInputEt.isEnabled = enabled
+            passwordInputEt.isEnabled = enabled
+            loginBtn.isEnabled = enabled
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val binding = checkNotNull(binding)
+        binding.loginBtn.setOnClickListener(null)
+        this.binding = null
     }
 }

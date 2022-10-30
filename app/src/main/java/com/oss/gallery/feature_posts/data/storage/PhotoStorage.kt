@@ -6,14 +6,14 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import androidx.annotation.RequiresApi
-import com.oss.gallery.di.IoDispatcher
+import com.oss.gallery.di.CoroutinesModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 // TODO save the picture to the photo gallery
 class PhotoStorage(
     private val context: Context,
-    @IoDispatcher
+    @CoroutinesModule.IoDispatcher
     private val ioDispatcher: CoroutineDispatcher
 ) {
 

@@ -9,5 +9,7 @@ constructor(
     val cleanStorageResources: CleanStorageResourcesUseCase,
     val getCachedPicturesFromDbWithNetworkCallUseCase: GetCachedPicturesFromDbWithNetworkCallUseCase,
     val onLikeClicked: LikePostWithTimeStampUseCase,
-    val getAllCachedPosts: GetAllCachedPostsUseCase
+    val getAllCachedPosts: GetAllCachedPostsUseCase,
+    val getFavoritesPosts: GetFavoritesPostsUseCase,
+    val deleteLikedPost: DeleteLikedPostUseCase
 )

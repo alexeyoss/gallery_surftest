@@ -14,9 +14,8 @@ import com.oss.gallery.feature_posts.utils.UniversalItemCallback
 class FavoritesFragmentAdapter(
     private val listener: FavoritesFragmentOnClickListener
 ) : ListAdapter<BasePictureCachedEntity, FavoritesFragmentAdapter.FavoritesPosts>(
-    UniversalItemCallback
-),
-    View.OnClickListener {
+    UniversalItemCallback()
+), View.OnClickListener {
 
     override fun onClick(v: View) {
         val picture = v.tag as BasePictureCachedEntity

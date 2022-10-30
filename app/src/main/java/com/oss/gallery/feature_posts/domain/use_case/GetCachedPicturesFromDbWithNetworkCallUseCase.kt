@@ -4,6 +4,7 @@ import com.oss.gallery.feature_posts.data.network.request.NetworkRequestState
 import com.oss.gallery.feature_posts.domain.repository.MainRepository
 import com.oss.gallery.feature_posts.domain.repository.PostsRepository
 import com.oss.gallery.feature_posts.presentation.states.MainUiStates
+import com.oss.gallery.feature_posts.utils.UseCaseWrapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -13,8 +14,9 @@ class GetCachedPicturesFromDbWithNetworkCallUseCase
 constructor(
     private val mainRepository: MainRepository,
     private val postsRepository: PostsRepository
-) {
-    suspend operator fun invoke(): Flow<MainUiStates> {
+) : UseCaseWrapper<Nothing, MainUiStates> {
+
+    override suspend operator fun invoke(data: Nothing?): Flow<MainUiStates> {
         return flow {
             emit(MainUiStates.Loading)
             val result = when (val request =

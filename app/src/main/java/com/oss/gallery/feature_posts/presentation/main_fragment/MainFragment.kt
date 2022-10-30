@@ -30,33 +30,36 @@ class MainFragment : BaseMainFragments(R.layout.fragment_main),
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initRecycleView()
         initListeners()
-
-        return binding.root
+        viewModel.getAllCachedPosts()
     }
 
     private fun initRecycleView() = with(binding) {
         mainScreenRv.apply {
             setHasFixedSize(true)
 
-            (itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false
+            (itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = true
 
             layoutManager =
                 StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL).apply {
                     gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
                 }
-
             adapter = mAdapter
+
         }
     }
 
     private fun initListeners() = with(binding) {
-        viewModel.picturesUiStateFlow.collectOnLifecycle(this@MainFragment) { uiState ->
+        viewModel.mainPicturesUiStateFlow.collectOnLifecycle(this@MainFragment) { uiState ->
             when (uiState) {
                 is MainUiStates.Loading -> Unit
                 is MainUiStates.Success<*> -> {
+//                    mAdapter.submitList(null)  TODO work but bink the whole list
                     mAdapter.submitList(uiState.data as List<BasePictureCachedEntity>)
                 }
                 is MainUiStates.Empty -> Unit
@@ -66,6 +69,7 @@ class MainFragment : BaseMainFragments(R.layout.fragment_main),
 
 
         swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getAllCachedPosts()
             swipeRefreshLayout.isRefreshing = false
         }
     }

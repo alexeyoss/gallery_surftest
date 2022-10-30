@@ -6,8 +6,14 @@ import com.oss.gallery.feature_posts.presentation.states.MainUiStates
 import kotlinx.coroutines.flow.StateFlow
 
 interface MainFragmentViewModel {
-    val picturesUiStateFlow: StateFlow<MainUiStates>
-    val picturesUiEventFlow: StateFlow<MainUiEvents>
+    val mainPicturesUiStateFlow: StateFlow<MainUiStates>
+    val mainPicturesUiEventFlow: StateFlow<MainUiEvents>
+
+    val favoritesPostsUiStateFlow: StateFlow<MainUiStates>
+    val favoritesPostsUiEventFlow: StateFlow<MainUiEvents>
+
+    fun getFavoritesPosts()
+    fun deleteFavoritePost(post: BasePictureCachedEntity)
 
     fun getCachedPicturesFromDbWithNetworkCallUseCase()
     fun onLikeClicked(post: BasePictureCachedEntity)

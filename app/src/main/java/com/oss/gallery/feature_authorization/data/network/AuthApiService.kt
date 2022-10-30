@@ -18,7 +18,6 @@ interface AuthApiService {
     @POST("auth/logout")
     suspend fun logout(): Response<Unit>
 
-    // TODO own method on server to provide the validity of token
     @GET("picture")
     suspend fun getPictures(): List<NetworkPictureResponse>
 }

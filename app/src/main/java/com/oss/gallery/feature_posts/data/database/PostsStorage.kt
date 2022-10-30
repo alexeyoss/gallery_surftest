@@ -1,8 +1,9 @@
 package com.oss.gallery.feature_posts.data.database
 
-import com.oss.gallery.di.IoDispatcher
+import com.oss.gallery.di.CoroutinesModule
 import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -10,7 +11,7 @@ class PostsStorage
 @Inject
 constructor(
     private val dao: PostsDao,
-    @IoDispatcher
+    @CoroutinesModule.IoDispatcher
     private val ioDispatcher: CoroutineDispatcher
 ) {
     suspend fun getAllCachedPosts(): List<BasePictureCachedEntity> = withContext(ioDispatcher) {
@@ -22,7 +23,7 @@ constructor(
     }
 
     suspend fun saveAllUniqueData(posts: List<BasePictureCachedEntity>): Boolean {
-        return withContext(ioDispatcher) {
+        return withContext(Dispatchers.IO) {
             runCatching {
                 dao.saveAllUniqueData(posts)
                 return@runCatching true
@@ -40,3 +41,4 @@ constructor(
         dao.unlikePostWithTimeStamp(post)
     }
 }
+

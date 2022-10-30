@@ -2,7 +2,7 @@ package com.oss.gallery.feature_authorization.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.oss.gallery.di.IoDispatcher
+import com.oss.gallery.di.CoroutinesModule
 import com.oss.gallery.feature_authorization.domain.use_case.AuthUseCases
 import com.oss.gallery.feature_authorization.presentation.states.AuthUiStates
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +19,7 @@ class AuthViewModelImpl
 @Inject
 constructor(
     private val authUseCases: AuthUseCases,
-    @IoDispatcher
+    @CoroutinesModule.IoDispatcher
     private val IoDispatcher: CoroutineDispatcher
 ) : ViewModel(), AuthViewModel {
 

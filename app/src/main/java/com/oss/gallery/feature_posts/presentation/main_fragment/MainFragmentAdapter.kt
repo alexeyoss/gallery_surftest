@@ -3,6 +3,7 @@ package com.oss.gallery.feature_posts.presentation.main_fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,7 +14,7 @@ import com.oss.gallery.feature_posts.utils.UniversalItemCallback
 
 class MainFragmentAdapter(
     private val listener: MainFragmentRvOnClickListener
-) : ListAdapter<BasePictureCachedEntity, MainFragmentAdapter.PictureHolder>(UniversalItemCallback),
+) : ListAdapter<BasePictureCachedEntity, MainFragmentAdapter.PictureHolder>(UniversalItemCallback()),
     View.OnClickListener {
 
     override fun onClick(v: View) {
@@ -39,28 +40,34 @@ class MainFragmentAdapter(
     }
 
     override fun onBindViewHolder(holder: PictureHolder, position: Int) {
-        val picture = getItem(position)
-
-        with(holder.binding) {
-            root.tag = picture
-            like.tag = picture
-
-            Glide.with(holder.itemView.context)
-                .load(picture.photoUrl)
-                .centerCrop()
-                .into(photo)
-            title.text = picture.title
-            like.setImageResource(
-                if (picture.liked)
-                    R.drawable.heart_fill
-                else
-                    R.drawable.heart_empty
-            )
-
-        }
+        holder.onBind(currentList[position])
     }
 
     inner class PictureHolder(
         val binding: ItemMainFragmentBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun onBind(item: BasePictureCachedEntity) {
+            with(binding) {
+                root.tag = item
+                like.tag = item
+
+                Glide.with(itemView.context)
+                    .load(item.photoUrl)
+                    .centerCrop()
+                    .into(photo)
+
+                title.text = item.title
+                like.setLiked(item.liked)
+            }
+        }
+
+        private fun ImageView.setLiked(isLiked: Boolean) {
+            when (isLiked) {
+                true -> setImageResource(R.drawable.heart_fill)
+                false -> setImageResource(R.drawable.heart_empty)
+            }
+        }
+    }
 }
+

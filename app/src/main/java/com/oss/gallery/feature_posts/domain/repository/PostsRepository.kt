@@ -6,5 +6,6 @@ interface PostsRepository {
     suspend fun likePostWithTimeStamp(post: BasePictureCachedEntity)
     suspend fun unlikePostWithTimeStamp(post: BasePictureCachedEntity)
     suspend fun getAllCachedPostsFromDb(): List<BasePictureCachedEntity>
+    suspend fun getFavoritesPosts(): List<BasePictureCachedEntity>
     suspend fun saveAllUniqueData(posts: List<BasePictureCachedEntity>): Boolean
 }

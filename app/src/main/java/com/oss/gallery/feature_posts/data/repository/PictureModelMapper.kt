@@ -5,7 +5,7 @@ import com.oss.gallery.feature_posts.data.network.response.NetworkPictureRespons
 import com.oss.gallery.feature_posts.utils.EntityMapper
 import com.oss.gallery.feature_posts.utils.StringUtils.getFormattedDateFromTimestamp
 
-class BasePictureModelMapper : EntityMapper<NetworkPictureResponse, BasePictureCachedEntity> {
+class PictureModelMapper : EntityMapper<NetworkPictureResponse, BasePictureCachedEntity> {
     override fun mapModelFromEntity(entity: NetworkPictureResponse): BasePictureCachedEntity {
         return BasePictureCachedEntity(
             id = entity.id,

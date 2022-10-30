@@ -24,7 +24,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), MainNavigator {
-    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
     private val currentFragment: Fragment
         get() = supportFragmentManager.findFragmentById(R.id.fragmentContainer)!!
@@ -109,7 +111,6 @@ class MainActivity : AppCompatActivity(), MainNavigator {
     }
 
     override fun goBack() {
+        onBackPressedDispatcher.onBackPressed()
     }
-
-    // TODO provide implement ViewModel factory
 }

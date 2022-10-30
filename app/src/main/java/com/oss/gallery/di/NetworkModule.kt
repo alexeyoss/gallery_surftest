@@ -10,6 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,14 +25,21 @@ object NetworkModule {
     @Provides
     fun provideLoginInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor { message ->
-            Log.d("OkHttp", message)
+            Log.d("OKHTTP", message)
         }.also { it.level = HttpLoggingInterceptor.Level.BODY }
     }
 
     @Singleton
+    @CoroutinesModule.ApplicationScope
     @Provides
-    fun provideTokenInterceptor(tokenStorage: TokenStorage): TokenInterceptorImpl {
-        return TokenInterceptorImpl(tokenStorage)
+    fun provideTokenInterceptor(
+        appScope: CoroutineScope,
+        tokenStorage: TokenStorage
+    ): TokenInterceptorImpl {
+        return TokenInterceptorImpl(
+            appScope,
+            tokenStorage
+        )
     }
 
     @Singleton

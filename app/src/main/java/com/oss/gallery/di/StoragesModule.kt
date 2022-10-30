@@ -7,7 +7,7 @@ import com.oss.gallery.feature_authorization.data.storage.TokenStorage
 import com.oss.gallery.feature_posts.data.database.PostsDB
 import com.oss.gallery.feature_posts.data.database.PostsDao
 import com.oss.gallery.feature_posts.data.database.PostsStorage
-import com.oss.gallery.feature_posts.data.repository.BasePictureModelMapper
+import com.oss.gallery.feature_posts.data.repository.PictureModelMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,13 +22,13 @@ object StoragesModule {
 
     @Singleton
     @Provides
-    fun provideBasePictureModelMapper(): BasePictureModelMapper = BasePictureModelMapper()
+    fun provideBasePictureModelMapper(): PictureModelMapper = PictureModelMapper()
 
     @Singleton
     @Provides
     fun provideTokenStorage(
         @ApplicationContext app: Context,
-        @IoDispatcher ioDispatcher: CoroutineDispatcher
+        @CoroutinesModule.IoDispatcher ioDispatcher: CoroutineDispatcher
     ): TokenStorage = TokenStorage(app, ioDispatcher)
 
     @Singleton
@@ -55,6 +55,6 @@ object StoragesModule {
     @Provides
     fun providePostsStorage(
         dao: PostsDao,
-        @IoDispatcher ioDispatcher: CoroutineDispatcher
+        @CoroutinesModule.IoDispatcher ioDispatcher: CoroutineDispatcher
     ): PostsStorage = PostsStorage(dao, ioDispatcher)
 }

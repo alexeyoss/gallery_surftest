@@ -7,18 +7,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetAllCachedPostsUseCase
+class GetFavoritesPostsUseCase
 @Inject
 constructor(
-    private val repositoryImpl: PostsRepository
+    private val postsRepository: PostsRepository
 ) : UseCaseWrapper<Nothing, MainUiStates> {
 
     override suspend operator fun invoke(data: Nothing?): Flow<MainUiStates> =
         flow {
             emit(MainUiStates.Loading)
-            val result = repositoryImpl.getAllCachedPostsFromDb()
-            if (result.isNotEmpty())
-                emit(MainUiStates.Success(result))
+            val result = postsRepository.getFavoritesPosts()
+            if (result.isNotEmpty()) emit(MainUiStates.Success(result))
             if (result.isEmpty()) emit(MainUiStates.Empty)
             else emit(MainUiStates.Error(result))
         }

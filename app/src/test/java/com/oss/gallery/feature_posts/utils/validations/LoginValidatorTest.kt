@@ -21,8 +21,7 @@ class LoginValidatorTest {
 
     private fun runFlow(data: String) {
         runBlocking {
-            val flow = loginValidator.validate(data)
-            flow.collectLatest {
+            loginValidator.validate(data).collectLatest {
                 result = it
             }
         }

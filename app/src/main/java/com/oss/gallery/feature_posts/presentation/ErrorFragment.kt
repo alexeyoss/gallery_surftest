@@ -16,10 +16,11 @@ class ErrorFragment : BaseMainFragments(R.layout.fragment_error) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentErrorBinding.inflate(inflater, container, false)
-
-        initListeners()
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initListeners()
     }
 
     private fun initListeners() = with(binding) {

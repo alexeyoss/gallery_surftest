@@ -23,6 +23,10 @@ constructor(
     override suspend fun getAllCachedPostsFromDb(): List<BasePictureCachedEntity> =
         postsStorage.getAllCachedPosts()
 
+    override suspend fun getFavoritesPosts(): List<BasePictureCachedEntity> {
+        return postsStorage.getAllLikedPosts()
+    }
+
     override suspend fun saveAllUniqueData(posts: List<BasePictureCachedEntity>): Boolean {
         return postsStorage.saveAllUniqueData(posts)
     }
