@@ -6,10 +6,12 @@ import com.oss.gallery.di.CoroutinesModule
 import com.oss.gallery.feature_authorization.data.network.request.NetworkAuthRequest
 import com.oss.gallery.feature_authorization.domain.use_case.AuthUseCases
 import com.oss.gallery.feature_authorization.presentation.states.AuthUiEvents
+import com.oss.gallery.feature_authorization.presentation.states.AuthUiEvents.Login
 import com.oss.gallery.feature_authorization.presentation.states.AuthUiStates
 import com.oss.gallery.feature_authorization.presentation.states.ValidationState
 import com.oss.gallery.feature_authorization.presentation.util.LoginValidator
 import com.oss.gallery.feature_authorization.presentation.util.PasswordValidator
+import com.oss.gallery.feature_posts.utils.launchWithIO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -30,7 +32,7 @@ constructor(
     private val loginValidator: LoginValidator,
     private val passwordValidator: PasswordValidator,
     @CoroutinesModule.IoDispatcher
-    private val ioDispatcher: CoroutineDispatcher,
+    private val ioDispatcher: CoroutineDispatcher
 //    @Assisted private val savedState: SavedStateHandle // TODO implement
 ) : ViewModel(), LoginViewModel {
 
@@ -38,7 +40,7 @@ constructor(
     override val authUiStateFlow = _authUiStateFlow.asStateFlow()
 
     private val _authUiEventFlow =
-        MutableStateFlow<AuthUiEvents>(AuthUiEvents.Login)
+        MutableStateFlow<AuthUiEvents>(Login)
     override val authUiEventFlow = _authUiEventFlow.asStateFlow()
 
     private val _loginValidationFlow =
@@ -53,11 +55,12 @@ constructor(
     override val commonValidationFlow = _commonValidationFlow.asSharedFlow()
 
     override fun login(authRequest: NetworkAuthRequest) {
-        viewModelScope.launch(ioDispatcher) {
-            authUseCases.login(authRequest)
-                .onEach { _authUiStateFlow.emit(it) }
-                .launchIn(viewModelScope)
-        }
+        launchWithIO(
+            useCase = { authUseCases.login(authRequest) },
+            stateFlow = _authUiStateFlow,
+            eventFlow = _authUiEventFlow,
+            event = Login
+        )
     }
 
     override fun validateLoginForm(dataModel: NetworkAuthRequest) {

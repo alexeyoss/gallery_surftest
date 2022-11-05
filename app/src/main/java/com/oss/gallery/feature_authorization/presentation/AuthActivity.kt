@@ -17,16 +17,15 @@ import com.oss.gallery.feature_posts.contract.AuthNavigator
 import com.oss.gallery.feature_posts.presentation.ErrorFragment
 import com.oss.gallery.feature_posts.presentation.MainActivity
 import com.oss.gallery.feature_posts.utils.collectOnLifecycle
+import com.oss.gallery.feature_posts.utils.lazyUnsafe
 import com.oss.gallery.feature_posts.utils.replaceFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AuthActivity : AppCompatActivity(), AuthNavigator {
 
-    private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        ActivityAuthBinding.inflate(
-            layoutInflater
-        )
+    private val binding by lazyUnsafe {
+        ActivityAuthBinding.inflate(layoutInflater)
     }
     private val viewModel by viewModels<AuthViewModelImpl>()
     private var keepSplashOnScreen = true

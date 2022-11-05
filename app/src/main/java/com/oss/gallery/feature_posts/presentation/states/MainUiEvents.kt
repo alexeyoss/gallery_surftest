@@ -7,4 +7,5 @@ sealed interface MainUiEvents {
     object LikePost : MainUiEvents
     object Logout : MainUiEvents
     object GetFavoritesPosts : MainUiEvents
+    object DeleteFavoritesPosts : MainUiEvents
 }

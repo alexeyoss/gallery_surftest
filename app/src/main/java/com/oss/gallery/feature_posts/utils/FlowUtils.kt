@@ -8,15 +8,38 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.viewModelScope
 import com.santalu.maskara.widget.MaskEditText
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+
+/** FlowCollector [collectOnLifecycle] overloading extensions */
+
+fun <T> Flow<T>.collectOnLifecycle(
+    lifecycleOwner: LifecycleOwner,
+    state: Lifecycle.State,
+    collector: (T) -> Unit
+) {
+    lifecycleOwner.lifecycleScope.launch {
+        lifecycleOwner.repeatOnLifecycle(state) {
+            collect {
+                collector(it)
+            }
+        }
+    }
+}
 
 fun <T> Flow<T>.collectOnLifecycle(
     lifecycleOwner: AppCompatActivity,
@@ -32,19 +55,29 @@ fun <T> Flow<T>.collectOnLifecycle(
     collectOnLifecycle(lifecycleOwner, Lifecycle.State.RESUMED, collector)
 }
 
-fun <T> Flow<T>.collectOnLifecycle(
-    lifecycleOwner: LifecycleOwner,
-    state: Lifecycle.State,
-    collector: (T) -> Unit
+/**
+ * ViewModel extension - base UseCase handler [launchWithIO]
+ */
+inline fun <UiState, UiEvent> ViewModel.launchWithIO(
+    crossinline useCase: suspend () -> Flow<UiState>,
+    stateFlow: MutableStateFlow<UiState>,
+    eventFlow: MutableStateFlow<UiEvent>? = null,
+    event: UiEvent? = null,
+    defaultDispatcherIO: CoroutineDispatcher = Dispatchers.IO
 ) {
-    lifecycleOwner.lifecycleScope.launch {
-        lifecycleOwner.repeatOnLifecycle(state) {
-            collect {
-                collector(it)
+    viewModelScope.launch(defaultDispatcherIO) {
+        useCase()
+            .onEach {
+                stateFlow.emit(it)
+                event?.let { event -> eventFlow?.emit(event) }
             }
-        }
+            .launchIn(viewModelScope)
     }
 }
+
+/**
+ * FlowBinding (replica of RxBinding)
+ * */
 
 private fun checkMainThread() {
     check(Looper.myLooper() == Looper.getMainLooper()) {

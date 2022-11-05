@@ -19,12 +19,13 @@ import com.oss.gallery.feature_posts.contract.ToolbarHandler
 import com.oss.gallery.feature_posts.presentation.main_fragment.MainFragment
 import com.oss.gallery.feature_posts.presentation.postdetails_fragment.PostDetailsFragment
 import com.oss.gallery.feature_posts.presentation.profile_fragment.ProfileFragment
+import com.oss.gallery.feature_posts.utils.lazyUnsafe
 import com.oss.gallery.feature_posts.utils.replaceFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), MainNavigator {
-    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+    private val binding by lazyUnsafe {
         ActivityMainBinding.inflate(layoutInflater)
     }
 

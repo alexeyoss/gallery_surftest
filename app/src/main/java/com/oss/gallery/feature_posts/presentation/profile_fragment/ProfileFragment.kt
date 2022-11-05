@@ -34,7 +34,6 @@ class ProfileFragment : BaseMainFragments(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initListeners()
         initViews()
-
     }
 
     private fun initListeners() = with(binding) {

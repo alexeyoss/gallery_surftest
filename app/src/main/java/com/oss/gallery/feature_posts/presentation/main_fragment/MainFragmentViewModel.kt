@@ -15,7 +15,6 @@ interface MainFragmentViewModel {
     fun getFavoritesPosts()
     fun deleteFavoritePost(post: BasePictureCachedEntity)
 
-    fun getCachedPicturesFromDbWithNetworkCallUseCase()
     fun onLikeClicked(post: BasePictureCachedEntity)
     fun getAllCachedPosts()
 }
