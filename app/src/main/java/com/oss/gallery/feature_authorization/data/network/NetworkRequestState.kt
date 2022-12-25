@@ -1,4 +1,4 @@
-package com.oss.gallery.feature_posts.data.network.request
+package com.oss.gallery.feature_authorization.data.network
 
 import com.oss.gallery.feature_authorization.data.network.response.NetworkErrorResponse
 

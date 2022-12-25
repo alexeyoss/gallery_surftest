@@ -7,13 +7,10 @@ import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.Fragment
-import com.oss.gallery.BuildConfig
 import com.oss.gallery.R
 import com.oss.gallery.databinding.ActivityAuthBinding
 import com.oss.gallery.feature_authorization.presentation.login_fragment.LoginFragment
 import com.oss.gallery.feature_authorization.presentation.states.AuthUiStates
-import com.oss.gallery.feature_posts.contract.AuthNavigator
 import com.oss.gallery.feature_posts.presentation.ErrorFragment
 import com.oss.gallery.feature_posts.presentation.MainActivity
 import com.oss.gallery.feature_posts.utils.collectOnLifecycle
@@ -30,9 +27,6 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
     private val viewModel by viewModels<AuthViewModelImpl>()
     private var keepSplashOnScreen = true
 
-    private val currentFragment: Fragment
-        get() = supportFragmentManager.findFragmentById(R.id.fragmentContainer)!!
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -43,7 +37,8 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
 
             Handler(Looper.getMainLooper()).postDelayed(
                 { keepSplashOnScreen = false },
-                BuildConfig.SPLASH_DELAY // TODO guess the splash delay is not working
+//                BuildConfig.SPLASH_DELAY
+                800L
             )
         }
 
@@ -54,7 +49,7 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
         super.onStart()
         initListeners()
 
-        supportActionBar!!.title = getString(R.string.login_tv_entry_text)
+        supportActionBar?.title = getString(R.string.login_tv_entry_text)
     }
 
     private fun initListeners() {
@@ -65,10 +60,9 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
         }
 
 
-        viewModel.authUiState.collectOnLifecycle(this)
-        { authUiState ->
+        viewModel.authUiState.collectOnLifecycle(this) { authUiState ->
             when (authUiState) {
-                is AuthUiStates.Success<*> -> changeActivity(null)
+                is AuthUiStates.Success<*> -> changeActivity()
                 is AuthUiStates.Empty -> Unit
                 is AuthUiStates.Loading -> Unit
                 is AuthUiStates.Error<*> -> replaceFragment(ErrorFragment(), addStack = false)
@@ -76,7 +70,7 @@ class AuthActivity : AppCompatActivity(), AuthNavigator {
         }
     }
 
-    override fun changeActivity(fragment: Fragment?) {
+    override fun changeActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }

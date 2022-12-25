@@ -1,6 +1,6 @@
 package com.oss.gallery.feature_posts.domain.use_case
 
-import com.oss.gallery.feature_posts.data.network.request.NetworkRequestState
+import com.oss.gallery.feature_authorization.data.network.NetworkRequestState
 import com.oss.gallery.feature_posts.domain.repository.MainRepository
 import com.oss.gallery.feature_posts.domain.repository.PostsRepository
 import com.oss.gallery.feature_posts.presentation.states.MainUiStates

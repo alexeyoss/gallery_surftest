@@ -1,7 +1,7 @@
 package com.oss.gallery.feature_posts.domain.util
 
-import com.oss.gallery.feature_posts.data.network.request.ErrorState
-import com.oss.gallery.feature_posts.data.network.request.NetworkRequestState
+import com.oss.gallery.feature_authorization.data.network.ErrorState
+import com.oss.gallery.feature_authorization.data.network.NetworkRequestState
 import com.oss.gallery.feature_posts.presentation.states.MainUiStates
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -7,9 +7,14 @@ buildscript {
         glide_version = "4.13.0"
         activityKtx = "1.6.0"
         fragmentKtx = "1.5.3"
-        navigatio_version = "2.5.2"
+        navigatio_version = "2.5.3"
         roomDB_version = "2.4.2"
     }
+
+    dependencies {
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigatio_version"
+    }
+
 }
 
 plugins {

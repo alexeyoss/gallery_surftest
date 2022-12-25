@@ -3,7 +3,7 @@ package com.oss.gallery.feature_posts.data.repository
 import com.oss.gallery.feature_authorization.data.storage.TokenStorage
 import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
 import com.oss.gallery.feature_posts.data.network.MainApiService
-import com.oss.gallery.feature_posts.data.network.request.NetworkRequestState
+import com.oss.gallery.feature_authorization.data.network.NetworkRequestState
 import com.oss.gallery.feature_posts.domain.repository.MainRepository
 import com.oss.gallery.feature_posts.utils.safeApiCall
 import javax.inject.Inject

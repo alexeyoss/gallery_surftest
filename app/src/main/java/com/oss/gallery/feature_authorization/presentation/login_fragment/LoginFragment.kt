@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputLayout
 import com.oss.gallery.R
 import com.oss.gallery.databinding.FragmentLoginBinding
 import com.oss.gallery.feature_authorization.data.network.request.NetworkAuthRequest
-import com.oss.gallery.feature_authorization.presentation.BaseAuthFragments
+import com.oss.gallery.feature_authorization.presentation.navigator
 import com.oss.gallery.feature_authorization.presentation.states.AuthUiStates
 import com.oss.gallery.feature_authorization.presentation.states.ValidationState
-import com.oss.gallery.feature_posts.contract.navigator
 import com.oss.gallery.feature_posts.utils.collectOnLifecycle
 import com.oss.gallery.feature_posts.utils.setErrorStateForTextInputLayout
 import com.oss.gallery.feature_posts.utils.textChanges
@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
+class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private var binding: FragmentLoginBinding? = null
     private val viewModel: LoginViewModelImpl by viewModels()
@@ -67,7 +67,7 @@ class LoginFragment : BaseAuthFragments(R.layout.fragment_login) {
                 when (uiState) {
                     is AuthUiStates.Success<*> -> {
                         freezeUiEntries(true)
-                        navigator().changeActivity(null)
+                        navigator().changeActivity()
                     }
                     is AuthUiStates.Error<*> -> {
                         freezeUiEntries(true)

@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.oss.gallery.R
 import com.oss.gallery.databinding.FragmentMainBinding
-import com.oss.gallery.feature_posts.contract.navigator
 import com.oss.gallery.feature_posts.data.database.entities.BasePictureCachedEntity
 import com.oss.gallery.feature_posts.presentation.BaseMainFragments
 import com.oss.gallery.feature_posts.presentation.states.MainUiStates
@@ -75,7 +75,9 @@ class MainFragment : BaseMainFragments(R.layout.fragment_main),
     }
 
     override fun onPostClicked(data: BasePictureCachedEntity) {
-        navigator().changeActivity(this)
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToPostDetailsFragment(data)
+        )
     }
 
     override fun onLikeClicked(post: BasePictureCachedEntity) {

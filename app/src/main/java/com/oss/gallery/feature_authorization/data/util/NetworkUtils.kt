@@ -3,8 +3,8 @@ package com.oss.gallery.feature_posts.utils
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.oss.gallery.feature_authorization.data.network.response.NetworkErrorResponse
-import com.oss.gallery.feature_posts.data.network.request.ErrorState
-import com.oss.gallery.feature_posts.data.network.request.NetworkRequestState
+import com.oss.gallery.feature_authorization.data.network.ErrorState
+import com.oss.gallery.feature_authorization.data.network.NetworkRequestState
 import retrofit2.HttpException
 import java.net.UnknownHostException
 

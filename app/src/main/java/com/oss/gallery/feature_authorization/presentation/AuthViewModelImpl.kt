@@ -35,7 +35,6 @@ constructor(
     }
 
     override fun checkTokenState() {
-
         launchWithIO<AuthUiStates, AuthUiEvents>(
             useCase = { authUseCases.checkTokenStatus() },
             stateFlow = _authUiState

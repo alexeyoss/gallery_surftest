@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <!-- TODO set padding 24 dp -->
-    <item
-        android:id="@+id/app_bar_search"
-        android:actionLayout="@layout/custom_search_view"
-        android:icon="@drawable/ic_search_line"
-        android:title="@string/customSearchIcon"
-        android:visible="true"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="always" />
+    <group android:id="@+id/search_id">
+        <item
+            android:id="@+id/app_bar_search"
+            android:actionLayout="@layout/custom_search_view"
+            android:icon="@drawable/ic_search_line"
+            android:title="@string/customSearchIcon"
+            android:visible="true"
+            app:actionViewClass="androidx.appcompat.widget.SearchView"
+            app:showAsAction="always" />
+    </group>
 </menu>

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.oss.gallery.R
 import com.oss.gallery.databinding.FragmentPostDetailsBinding
@@ -18,20 +20,19 @@ class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
     private lateinit var binding: FragmentPostDetailsBinding
 
     private var _state by argumentNullable<BasePictureCachedEntity>()
+    private val args: PostDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentPostDetailsBinding.inflate(inflater, container, false)
 
-        savedInstanceState?.get(ARG_KEY)?.let {
-            initViews(it as BasePictureCachedEntity)
-        }
+        savedInstanceState?.getParcelable(ARG_KEY, BasePictureCachedEntity::class.java)
+            ?.let { basePictureCachedEntity ->
+                initViews(basePictureCachedEntity)
+            }
 
-        arguments?.getParcelable<BasePictureCachedEntity>(ARG_KEY)?.let {
-            initViews(it)
-        }
+        initViews(args.basePictureCachedEntity)
 
         return binding.root
     }
@@ -39,14 +40,13 @@ class PostDetailsFragment : BaseMainFragments(R.layout.fragment_post_details) {
     private fun initViews(source: BasePictureCachedEntity) = with(binding) {
         _state = source
 
-        Glide.with(root)
-            .load(source.photoUrl)
-            .centerCrop()
-            .into(photo)
+        Glide.with(root).load(source.photoUrl).centerCrop().into(photo)
 
         title.text = source.title
         publicationDate.text = source.publicationDate
         content.text = source.content
+
+        findNavController().navigate(R.id.favoritesFragment)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
